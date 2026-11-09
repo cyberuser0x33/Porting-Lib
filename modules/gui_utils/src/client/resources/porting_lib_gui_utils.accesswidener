@@ -1,4 +1,4 @@
-accessWidener v2 named
+accessWidener v2 official
 transitive-accessible class net/minecraft/client/gui/MapRenderer$MapInstance
 
 accessible field net/minecraft/client/gui/components/Button$Builder message Lnet/minecraft/network/chat/Component;

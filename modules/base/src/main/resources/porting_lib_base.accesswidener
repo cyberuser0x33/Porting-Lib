@@ -1,4 +1,4 @@
-accessWidener v2 named
+accessWidener v2 official
 
 transitive-accessible class net/minecraft/world/item/enchantment/EnchantmentHelper$EnchantmentVisitor
 transitive-accessible class net/minecraft/world/level/entity/PersistentEntitySectionManager$Callback

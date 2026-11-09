@@ -1,0 +1,173 @@
+diff --git a/modules/base/src/main/resources/porting_lib_base.accesswidener b/modules/base/src/main/resources/porting_lib_base.accesswidener
+index 8b0de4f..023fdfe 100644
+--- a/modules/base/src/main/resources/porting_lib_base.accesswidener
++++ b/modules/base/src/main/resources/porting_lib_base.accesswidener
+@@ -1,4 +1,4 @@
+-accessWidener v2 named
++accessWidener v2 official
+ 
+ transitive-accessible class net/minecraft/world/item/enchantment/EnchantmentHelper$EnchantmentVisitor
+ transitive-accessible class net/minecraft/world/level/entity/PersistentEntitySectionManager$Callback
+diff --git a/modules/blocks/src/main/resources/porting_lib_blocks.accesswidener b/modules/blocks/src/main/resources/porting_lib_blocks.accesswidener
+index f8c3272..bb520b6 100644
+--- a/modules/blocks/src/main/resources/porting_lib_blocks.accesswidener
++++ b/modules/blocks/src/main/resources/porting_lib_blocks.accesswidener
+@@ -1,3 +1,3 @@
+-accessWidener v2 named
++accessWidener v2 official
+ 
+ transitive-accessible class net/minecraft/world/level/lighting/BlockLightSectionStorage$BlockDataLayerStorageMap
+diff --git a/modules/brewing/src/main/resources/porting_lib_brewing.accesswidener b/modules/brewing/src/main/resources/porting_lib_brewing.accesswidener
+index c0f15c5..cd95bb6 100644
+--- a/modules/brewing/src/main/resources/porting_lib_brewing.accesswidener
++++ b/modules/brewing/src/main/resources/porting_lib_brewing.accesswidener
+@@ -1,3 +1,3 @@
+-accessWidener v2 named
++accessWidener v2 official
+ 
+ transitive-accessible class net/minecraft/world/item/alchemy/PotionBrewing$Mix
+diff --git a/modules/client_events/src/client/resources/porting_lib_client_events.accesswidener b/modules/client_events/src/client/resources/porting_lib_client_events.accesswidener
+index 4bc77ac..ad84de7 100644
+--- a/modules/client_events/src/client/resources/porting_lib_client_events.accesswidener
++++ b/modules/client_events/src/client/resources/porting_lib_client_events.accesswidener
+@@ -1,3 +1,3 @@
+-accessWidener v2 named
++accessWidener v2 official
+ transitive-accessible field net/minecraft/client/renderer/blockentity/SkullBlockRenderer SKIN_BY_TYPE Ljava/util/Map;
+ accessible method net/minecraft/client/renderer/GameRenderer setPostEffect (Lnet/minecraft/resources/Identifier;)V
+diff --git a/modules/common/src/main/resources/porting_lib_common.accesswidener b/modules/common/src/main/resources/porting_lib_common.accesswidener
+index 96a918d..980819d 100644
+--- a/modules/common/src/main/resources/porting_lib_common.accesswidener
++++ b/modules/common/src/main/resources/porting_lib_common.accesswidener
+@@ -1,4 +1,4 @@
+-accessWidener v2 named
++accessWidener v2 official
+ 
+ transitive-accessible class net/minecraft/world/item/crafting/Ingredient$Value
+ 
+diff --git a/modules/config/src/main/resources/porting_lib_config.accesswidener b/modules/config/src/main/resources/porting_lib_config.accesswidener
+index d762c76..65e025c 100644
+--- a/modules/config/src/main/resources/porting_lib_config.accesswidener
++++ b/modules/config/src/main/resources/porting_lib_config.accesswidener
+@@ -1,4 +1,4 @@
+-accessWidener v2 named
++accessWidener v2 official
+ 
+ accessible method net/minecraft/world/level/storage/LevelResource <init> (Ljava/lang/String;)V
+ 
+diff --git a/modules/data/src/main/resources/porting_lib_data.accesswidener b/modules/data/src/main/resources/porting_lib_data.accesswidener
+index d07d31e..ad4115a 100644
+--- a/modules/data/src/main/resources/porting_lib_data.accesswidener
++++ b/modules/data/src/main/resources/porting_lib_data.accesswidener
+@@ -1,4 +1,4 @@
+-accessWidener v2 named
++accessWidener v2 official
+ 
+ transitive-accessible class net/minecraft/core/RegistrySetBuilder$RegistryStub
+ transitive-accessible class net/minecraft/server/packs/FilePackResources$SharedZipFileAccess
+diff --git a/modules/entity/src/main/resources/porting_lib_entity.accesswidener b/modules/entity/src/main/resources/porting_lib_entity.accesswidener
+index f070fa2..7e9b144 100644
+--- a/modules/entity/src/main/resources/porting_lib_entity.accesswidener
++++ b/modules/entity/src/main/resources/porting_lib_entity.accesswidener
+@@ -1,3 +1,3 @@
+-accessWidener v2 named
++accessWidener v2 official
+ accessible class net/minecraft/server/commands/TeleportCommand$LookAt
+ accessible class net/minecraft/world/effect/MobEffectInstance$Details
+diff --git a/modules/gametest/src/main/resources/porting_lib_gametest.accesswidener b/modules/gametest/src/main/resources/porting_lib_gametest.accesswidener
+index a5428fc..7ee2ef2 100644
+--- a/modules/gametest/src/main/resources/porting_lib_gametest.accesswidener
++++ b/modules/gametest/src/main/resources/porting_lib_gametest.accesswidener
+@@ -1,4 +1,4 @@
+-accessWidener v2 named
++accessWidener v2 official
+ 
+ transitive-accessible field net/minecraft/gametest/framework/GameTestHelper testInfo Lnet/minecraft/gametest/framework/GameTestInfo;
+ 
+diff --git a/modules/gui_utils/src/client/resources/porting_lib_gui_utils.accesswidener b/modules/gui_utils/src/client/resources/porting_lib_gui_utils.accesswidener
+index d8e3007..684dc4b 100644
+--- a/modules/gui_utils/src/client/resources/porting_lib_gui_utils.accesswidener
++++ b/modules/gui_utils/src/client/resources/porting_lib_gui_utils.accesswidener
+@@ -1,4 +1,4 @@
+-accessWidener v2 named
++accessWidener v2 official
+ transitive-accessible class net/minecraft/client/gui/MapRenderer$MapInstance
+ 
+ accessible field net/minecraft/client/gui/components/Button$Builder message Lnet/minecraft/network/chat/Component;
+diff --git a/modules/item_abilities/src/main/resources/porting_lib_item_abilities.accesswidener b/modules/item_abilities/src/main/resources/porting_lib_item_abilities.accesswidener
+index 3b312e2..dd3617b 100644
+--- a/modules/item_abilities/src/main/resources/porting_lib_item_abilities.accesswidener
++++ b/modules/item_abilities/src/main/resources/porting_lib_item_abilities.accesswidener
+@@ -1,4 +1,4 @@
+-accessWidener v2 named
++accessWidener v2 official
+ 
+ transitive-accessible field net/minecraft/world/item/AxeItem STRIPPABLES Ljava/util/Map;
+ transitive-accessible field net/minecraft/world/item/ShovelItem FLATTENABLES Ljava/util/Map;
+diff --git a/modules/items/src/main/resources/porting_lib_items.accesswidener b/modules/items/src/main/resources/porting_lib_items.accesswidener
+index 539adf7..5fabd68 100644
+--- a/modules/items/src/main/resources/porting_lib_items.accesswidener
++++ b/modules/items/src/main/resources/porting_lib_items.accesswidener
+@@ -1,4 +1,4 @@
+-accessWidener v2 named
++accessWidener v2 official
+ accessible field com/mojang/blaze3d/platform/GlStateManager BLEND Lcom/mojang/blaze3d/platform/GlStateManager$BlendState;
+ accessible field com/mojang/blaze3d/platform/GlStateManager DEPTH Lcom/mojang/blaze3d/platform/GlStateManager$DepthState;
+ accessible field com/mojang/blaze3d/platform/GlStateManager CULL Lcom/mojang/blaze3d/platform/GlStateManager$CullState;
+diff --git a/modules/model_loader/src/client/resources/porting_lib_model_loader.accesswidener b/modules/model_loader/src/client/resources/porting_lib_model_loader.accesswidener
+index df59356..0777aa0 100644
+--- a/modules/model_loader/src/client/resources/porting_lib_model_loader.accesswidener
++++ b/modules/model_loader/src/client/resources/porting_lib_model_loader.accesswidener
+@@ -1,4 +1,4 @@
+-accessWidener v2 named
++accessWidener v2 official
+ 
+ transitive-accessible method net/minecraft/client/renderer/block/model/ItemModelGenerator processFrames (ILjava/lang/String;Lnet/minecraft/client/renderer/texture/SpriteContents;)Ljava/util/List;
+ 
+diff --git a/modules/models/src/main/resources/porting_lib_models.accesswidener b/modules/models/src/main/resources/porting_lib_models.accesswidener
+index 335ebad..989d45b 100644
+--- a/modules/models/src/main/resources/porting_lib_models.accesswidener
++++ b/modules/models/src/main/resources/porting_lib_models.accesswidener
+@@ -1,4 +1,4 @@
+-accessWidener v2 named
++accessWidener v2 official
+ 
+ transitive-accessible class net/minecraft/client/resources/model/ModelManager$ReloadState
+ 
+diff --git a/modules/registry/src/main/resources/porting_lib_registry.accesswidener b/modules/registry/src/main/resources/porting_lib_registry.accesswidener
+index 66fb6bb..7f66afc 100644
+--- a/modules/registry/src/main/resources/porting_lib_registry.accesswidener
++++ b/modules/registry/src/main/resources/porting_lib_registry.accesswidener
+@@ -1,3 +1,3 @@
+-accessWidener v2 named
++accessWidener v2 official
+ 
+ transitive-accessible method net/minecraft/resources/ResourceKey create (Lnet/minecraft/resources/ResourceLocation;Lnet/minecraft/resources/ResourceLocation;)Lnet/minecraft/resources/ResourceKey;
+diff --git a/modules/render_types/src/client/resources/porting_lib_render_types.accesswidener b/modules/render_types/src/client/resources/porting_lib_render_types.accesswidener
+index 67d36a7..4218426 100644
+--- a/modules/render_types/src/client/resources/porting_lib_render_types.accesswidener
++++ b/modules/render_types/src/client/resources/porting_lib_render_types.accesswidener
+@@ -1,4 +1,4 @@
+-accessWidener v2 named
++accessWidener v2 official
+ 
+ mutable field net/minecraft/client/renderer/RenderStateShard$TextureStateShard blur Z
+ mutable field net/minecraft/client/renderer/RenderStateShard$TextureStateShard mipmap Z
+diff --git a/modules/resources/src/main/resources/porting_lib_resources.accesswidener b/modules/resources/src/main/resources/porting_lib_resources.accesswidener
+index 8c580f2..9159308 100644
+--- a/modules/resources/src/main/resources/porting_lib_resources.accesswidener
++++ b/modules/resources/src/main/resources/porting_lib_resources.accesswidener
+@@ -1,4 +1,4 @@
+-accessWidener v2 named
++accessWidener v2 official
+ 
+ accessible field net/minecraft/resources/RegistryOps lookupProvider Lnet/minecraft/resources/RegistryOps$RegistryInfoLookup;
+ accessible method net/minecraft/resources/RegistryOps <init> (Lcom/mojang/serialization/DynamicOps;Lnet/minecraft/resources/RegistryOps$RegistryInfoLookup;)V
+diff --git a/modules/transfer/src/main/resources/porting_lib_transfer.accesswidener b/modules/transfer/src/main/resources/porting_lib_transfer.accesswidener
+index 8588f02..f53c037 100644
+--- a/modules/transfer/src/main/resources/porting_lib_transfer.accesswidener
++++ b/modules/transfer/src/main/resources/porting_lib_transfer.accesswidener
+@@ -1,2 +1,2 @@
+-accessWidener v2 named
++accessWidener v2 official
+ accessible field net/minecraft/world/item/BucketItem content Lnet/minecraft/world/level/material/Fluid;
