@@ -19,7 +19,7 @@ import com.mojang.serialization.Lifecycle;
 import io.github.fabricators_of_create.porting_lib.tool.ItemAbilities;
 import io.github.fabricators_of_create.porting_lib.tool.loot.CanItemPerformAbility;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;

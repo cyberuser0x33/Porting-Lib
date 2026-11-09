@@ -13,7 +13,7 @@ import net.minecraft.client.renderer.entity.BoatRenderer;
 
 import net.minecraft.resources.Identifier;
 
-import net.minecraft.world.entity.vehicle.Boat;
+import net.minecraft.world.entity.vehicle.boat.Boat;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -22,14 +22,14 @@ import java.util.Map;
 
 @Mixin(BoatRenderer.class)
 public class BoatRendererMixin {
-	@ModifyReturnValue(method = "getTextureLocation(Lnet/minecraft/world/entity/vehicle/Boat;)Lnet/minecraft/resources/Identifier;", at = @At("RETURN"))
+	@ModifyReturnValue(method = "getTextureLocation(Lnet/minecraft/world/entity/vehicle/boat/Boat;)Lnet/minecraft/resources/Identifier;", at = @At("RETURN"))
 	private Identifier getCustomModelTexture(Identifier original, Boat boat) {
 		if (this instanceof CustomBoatModel customModel)
 			return customModel.getModelWithLocation(boat).getFirst();
 		return original;
 	}
 
-	@WrapOperation(method = "render(Lnet/minecraft/world/entity/vehicle/Boat;FFLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;I)V", at = @At(value = "INVOKE", target = "Ljava/util/Map;get(Ljava/lang/Object;)Ljava/lang/Object;"))
+	@WrapOperation(method = "render(Lnet/minecraft/world/entity/vehicle/boat/Boat;FFLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;I)V", at = @At(value = "INVOKE", target = "Ljava/util/Map;get(Ljava/lang/Object;)Ljava/lang/Object;"))
 	private Object getCustomModel(Map<Boat.Type, Pair<Identifier, ListModel<Boat>>> instance, Object o, Operation<Pair<Identifier, ListModel<Boat>>> original, Boat boat) {
 		if (this instanceof CustomBoatModel customModel)
 			return customModel.getModelWithLocation(boat);

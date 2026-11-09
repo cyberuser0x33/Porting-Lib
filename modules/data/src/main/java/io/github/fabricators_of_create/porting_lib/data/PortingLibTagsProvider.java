@@ -5,7 +5,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 
 import net.fabricmc.fabric.impl.datagen.FabricTagBuilder;
 import net.fabricmc.fabric.impl.datagen.ForcedTagEntry;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.Registry;

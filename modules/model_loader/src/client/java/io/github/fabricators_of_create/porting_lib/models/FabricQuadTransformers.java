@@ -5,7 +5,7 @@ import com.mojang.math.Transformation;
 
 import net.fabricmc.fabric.api.renderer.v1.mesh.MutableQuadView;
 import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.client.renderer.LightTexture;
 
 import org.joml.Vector3f;

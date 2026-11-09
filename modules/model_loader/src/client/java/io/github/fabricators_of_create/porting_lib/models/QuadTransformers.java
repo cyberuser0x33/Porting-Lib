@@ -3,7 +3,7 @@ package io.github.fabricators_of_create.porting_lib.models;
 import com.google.common.base.Preconditions;
 import com.mojang.math.Transformation;
 import java.util.Arrays;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import org.joml.Vector3f;

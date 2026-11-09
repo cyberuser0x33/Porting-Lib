@@ -6,7 +6,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.ObserverBlock;
-import net.minecraft.world.level.block.RedStoneWireBlock;
+import net.minecraft.world.level.block.RedstoneWireBlock;
 import net.minecraft.world.level.block.RepeaterBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -17,10 +17,10 @@ public interface ConnectableRedstoneBlock {
 	 * Whether redstone dust should visually connect to this block on a given side
 	 * <p>
 	 * The default implementation is identical to
-	 * {@code RedStoneWireBlock#shouldConnectTo(BlockState, Direction)}
+	 * {@code RedstoneWireBlock#shouldConnectTo(BlockState, Direction)}
 	 *
 	 * <p>
-	 * {@link RedStoneWireBlock} updates its visual connection when
+	 * {@link RedstoneWireBlock} updates its visual connection when
 	 * {@link BlockState#updateShape(Direction, BlockState, LevelAccessor, BlockPos, BlockPos)}
 	 * is called, this callback is used during the evaluation of its new shape.
 	 *

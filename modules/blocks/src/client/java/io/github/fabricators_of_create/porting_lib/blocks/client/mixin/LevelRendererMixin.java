@@ -9,7 +9,7 @@ import io.github.fabricators_of_create.porting_lib.blocks.extensions.LightEmissi
 import net.minecraft.client.renderer.LevelRenderer;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.BlockAndTintGetter;
+import net.minecraft.client.renderer.block.BlockAndTintGetter;
 
 import net.minecraft.world.level.block.state.BlockState;
 
