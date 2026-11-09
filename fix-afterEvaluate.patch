@@ -1,0 +1,55 @@
+diff --git a/build.gradle b/build.gradle
+index dfabf26..7b93b27 100644
+--- a/build.gradle
++++ b/build.gradle
+@@ -163,6 +163,17 @@ allprojects {
+ 	jar.from(rootProject.file("LICENSE")) // copy license file into jar
+ }
+ 
++// First pass: create the split (main/client) source sets of EVERY module.
++// This must be a separate block so all of them exist before any module depends on another one.
++subprojects {
++	// Must be added before the split source sets are setup.
++	java.withSourcesJar()
++
++	loom {
++		splitEnvironmentSourceSets()
++	}
++}
++
+ subprojects {
+ 	apply plugin: "maven-publish"
+ 
+@@ -170,15 +181,11 @@ subprojects {
+ 		archivesName = "porting_lib_" + name
+ 	}
+ 
+-	// Must be added before the split source sets are setup.
+-	java.withSourcesJar()
+-
+ 	loom {
+ 		runs.configureEach {
+ 			File output = file("src/main/resources/data/porting_lib_$name/structures/gametest")
+ 			property("porting_lib.gametest.quickexport.output", output.absolutePath)
+ 		}
+-		splitEnvironmentSourceSets()
+ 		mods.register("porting_lib_" + name) {
+ 			sourceSet sourceSets.main
+ 			sourceSet sourceSets.client
+@@ -192,11 +199,11 @@ subprojects {
+ 	}
+ 
+ 	// these two modules are used by all others automatically.
+-	afterEvaluate {
+-		if (name != "core" && name != "gametest") {
+-			portingLib {
+-				addModuleDependency("core") // core depends on gametest
+-			}
++	// Must NOT be in afterEvaluate: Loom 1.19 resolves the runtime classpath in its own afterEvaluate,
++	// and the dependencies of 'api' can't be changed after that ("Cannot mutate the dependencies").
++	if (name != "core" && name != "gametest") {
++		portingLib {
++			addModuleDependency("core") // core depends on gametest
+ 		}
+ 	}
+ 
