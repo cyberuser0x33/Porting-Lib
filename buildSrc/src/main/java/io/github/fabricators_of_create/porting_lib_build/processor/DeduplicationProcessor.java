@@ -7,9 +7,9 @@ import io.github.fabricators_of_create.porting_lib_build.PortingLibBuildPlugin;
 import io.github.fabricators_of_create.porting_lib_build.ProjectProcessor;
 
 import io.github.fabricators_of_create.porting_lib_build.Utils;
-import net.fabricmc.loom.task.RemapJarTask;
 
 import org.gradle.api.Project;
+import org.gradle.jvm.tasks.Jar;
 
 import java.io.IOException;
 import java.nio.file.FileSystem;
@@ -25,7 +25,8 @@ import java.util.stream.Stream;
 public class DeduplicationProcessor implements ProjectProcessor {
 	@Override
 	public void apply(Project project) {
-		project.getTasks().named("remapJar", RemapJarTask.class).configure(task -> task.doLast($ -> {
+		// 26.x is unobfuscated: there is no remapJar, the plain jar task is the final jar
+		project.getTasks().named("jar", Jar.class).configure(task -> task.doLast($ -> {
 			Path path = task.getArchiveFile().get().getAsFile().toPath();
 			this.deduplicateInclusions(path);
 		}));

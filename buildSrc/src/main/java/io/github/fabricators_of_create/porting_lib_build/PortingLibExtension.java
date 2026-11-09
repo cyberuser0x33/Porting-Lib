@@ -51,8 +51,7 @@ public abstract class PortingLibExtension {
 		SourceSetOutput clientOutput = project.findProject(":" + name).getExtensions().findByType(JavaPluginExtension.class).getSourceSets().getByName("client").getOutput();
 
 		Dependency dependency = dependencies.project(Map.of(
-				"path", ":" + name,
-				"configuration", "namedElements"
+				"path", ":" + name
 		));
 		List<String> modules;
 		if (dependencies.getExtensions().findByName("porting_lib_modules") == null) {
@@ -147,8 +146,7 @@ public abstract class PortingLibExtension {
 				DependencyHandler dependencies = project.getDependencies();
 				for (String name : settings.getModuleDependencies().get()) {
 					Dependency dependency = dependencies.project(Map.of(
-							"path", ":" + name,
-							"configuration", "namedElements"
+							"path", ":" + name
 					));
 					dependencies.add(dataGenApi.getName(), dependency);
 
@@ -158,8 +156,6 @@ public abstract class PortingLibExtension {
 				}
 				mod.sourceSet(DATAGEN_SOURCESET_NAME);
 			});
-
-			extension.createRemapConfigurations(sourceSets.getByName(DATAGEN_SOURCESET_NAME));
 		}
 
 		if (settings.getCreateRunConfiguration().get()) {
