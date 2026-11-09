@@ -31,3 +31,7 @@ bin/
 # fabric
 *.patch
 run/
+
+*.patch
+*-errors.txt
+lookup.txt
