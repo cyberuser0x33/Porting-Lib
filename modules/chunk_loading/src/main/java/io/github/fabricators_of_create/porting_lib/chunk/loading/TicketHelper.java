@@ -3,7 +3,7 @@ package io.github.fabricators_of_create.porting_lib.chunk.loading;
 import java.util.Map;
 import java.util.UUID;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.ForcedChunksSavedData;
 
 /**
@@ -13,9 +13,9 @@ public class TicketHelper {
 	private final Map<BlockPos, TicketSet> blockTickets;
 	private final Map<UUID, TicketSet> entityTickets;
 	private final ForcedChunksSavedData saveData;
-	private final ResourceLocation controllerId;
+	private final Identifier controllerId;
 
-	TicketHelper(ForcedChunksSavedData saveData, ResourceLocation controllerId, Map<BlockPos, TicketSet> blockTickets, Map<UUID, TicketSet> entityTickets) {
+	TicketHelper(ForcedChunksSavedData saveData, Identifier controllerId, Map<BlockPos, TicketSet> blockTickets, Map<UUID, TicketSet> entityTickets) {
 		this.saveData = saveData;
 		this.controllerId = controllerId;
 		this.blockTickets = blockTickets;

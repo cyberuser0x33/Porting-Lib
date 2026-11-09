@@ -6,7 +6,7 @@ import net.fabricmc.api.ModInitializer;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.item.Item;
@@ -15,8 +15,8 @@ import net.minecraft.world.item.Tiers;
 import net.minecraft.world.level.block.SkullBlock;
 
 public class PortingLibItemsTestmod implements ModInitializer {
-	public static final ResourceLocation TAB1 = PortingLib.id("tab1");
-	public static final ResourceLocation TAB2 = PortingLib.id("tab2");
+	public static final Identifier TAB1 = PortingLib.id("tab1");
+	public static final Identifier TAB2 = PortingLib.id("tab2");
 	public static final Item NO_REPAIR_PICK = new PickaxeItem(Tiers.NETHERITE, new Item.Properties().port_lib$setNoRepair().fireResistant().attributes(PickaxeItem.createAttributes(Tiers.NETHERITE, 1.0F, -2.8F)));
 	@Override
 	public void onInitialize() {

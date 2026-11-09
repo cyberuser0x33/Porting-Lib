@@ -6,7 +6,7 @@ import io.github.fabricators_of_create.porting_lib.render_types.NamedRenderTypeM
 import io.github.fabricators_of_create.porting_lib.render_types.RenderTypeGroup;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.resources.model.Material;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jspecify.annotations.Nullable;
 
 /**
@@ -68,7 +68,7 @@ public interface IGeometryBakingContext {
 	 * {@return a hint of the render type this model should use. Custom loaders may ignore this.}
 	 */
 	@Nullable
-	ResourceLocation getRenderTypeHint();
+	Identifier getRenderTypeHint();
 
 	/**
 	 * Queries the visibility of a component of this model.
@@ -82,7 +82,7 @@ public interface IGeometryBakingContext {
 	/**
 	 * {@return a {@link RenderTypeGroup} with the given name, or the empty group if not found.}
 	 */
-	default RenderTypeGroup getRenderType(ResourceLocation name) {
+	default RenderTypeGroup getRenderType(Identifier name) {
 		return NamedRenderTypeManager.get(name);
 	}
 }

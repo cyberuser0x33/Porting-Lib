@@ -20,7 +20,7 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.fabricmc.loader.api.metadata.CustomValue;
 import net.fabricmc.loader.api.metadata.CustomValue.CvType;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 /**
  * Manager for {@linkplain IGeometryLoader geometry loaders}.
@@ -28,15 +28,15 @@ import net.minecraft.resources.ResourceLocation;
  * Provides a lookup.
  */
 public final class GeometryLoaderManager {
-	private static ImmutableMap<ResourceLocation, IGeometryLoader<?>> LOADERS;
+	private static ImmutableMap<Identifier, IGeometryLoader<?>> LOADERS;
 	private static String LOADER_LIST;
-	public static final List<ResourceLocation> KNOWN_MISSING_LOADERS = new ArrayList<>();
+	public static final List<Identifier> KNOWN_MISSING_LOADERS = new ArrayList<>();
 
 	/**
 	 * Finds the {@link IGeometryLoader} for a given name, or null if not found.
 	 */
 	@Nullable
-	public static IGeometryLoader<?> get(ResourceLocation name) {
+	public static IGeometryLoader<?> get(Identifier name) {
 		return LOADERS.get(name);
 	}
 
@@ -65,11 +65,11 @@ public final class GeometryLoaderManager {
 
 	@ApiStatus.Internal
 	public static void init() {
-		Map<ResourceLocation, IGeometryLoader<?>> loaders = new HashMap<>();
+		Map<Identifier, IGeometryLoader<?>> loaders = new HashMap<>();
 		RegisterGeometryLoadersCallback.EVENT.invoker().registerGeometryLoaders(loaders);
 		getProvidedLoaders(loaders);
 		LOADERS = ImmutableMap.copyOf(loaders);
-		LOADER_LIST = loaders.keySet().stream().map(ResourceLocation::toString).collect(Collectors.joining(", "));
+		LOADER_LIST = loaders.keySet().stream().map(Identifier::toString).collect(Collectors.joining(", "));
 	}
 
 	/**
@@ -84,8 +84,8 @@ public final class GeometryLoaderManager {
 	 * </pre>
 	 * These IDs will not be considered missing, and Porting Lib will not interfere with models using them.
 	 */
-	private static void getProvidedLoaders(Map<ResourceLocation, IGeometryLoader<?>> loaders) {
-		List<ResourceLocation> providedLoaders = new ArrayList<>();
+	private static void getProvidedLoaders(Map<Identifier, IGeometryLoader<?>> loaders) {
+		List<Identifier> providedLoaders = new ArrayList<>();
 		for (ModContainer mod : FabricLoader.getInstance().getAllMods()) {
 			CustomValue provided = mod.getMetadata().getCustomValue("porting_lib:provided_loaders");
 			if (provided == null) {
@@ -103,7 +103,7 @@ public final class GeometryLoaderManager {
 					continue;
 				}
 				String idString = value.getAsString();
-				ResourceLocation id = ResourceLocation.tryParse(idString);
+				Identifier id = Identifier.tryParse(idString);
 				if (id == null) {
 					PortingLib.LOGGER.error("Mod {} provides loader {}, which is not a valid ID!",
 							mod.getMetadata().getName(), idString);
@@ -114,7 +114,7 @@ public final class GeometryLoaderManager {
 		}
 		if (!providedLoaders.isEmpty()) {
 			StringBuilder out = new StringBuilder("Registered %s provided loaders: ".formatted(providedLoaders.size()));
-			for (ResourceLocation loader : providedLoaders) {
+			for (Identifier loader : providedLoaders) {
 				out.append(loader).append(", ");
 				loaders.put(loader, NullGeometryLoader.INSTANCE);
 			}

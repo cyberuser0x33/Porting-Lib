@@ -11,7 +11,7 @@ import com.mojang.math.Transformation;
 import io.github.fabricators_of_create.porting_lib.core.PortingLib;
 import io.github.fabricators_of_create.porting_lib.models.geometry.GeometryLoaderManager;
 import io.github.fabricators_of_create.porting_lib.models.geometry.IUnbakedGeometry;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -50,7 +50,7 @@ public abstract class BlockModelDeserializerMixin {
 
 		if (jsonobject.has("render_type")) {
 			var renderTypeHintName = GsonHelper.getAsString(jsonobject, "render_type");
-			model.port_lib$getCustomData().setRenderTypeHint(ResourceLocation.parse(renderTypeHintName));
+			model.port_lib$getCustomData().setRenderTypeHint(Identifier.parse(renderTypeHintName));
 		}
 
 		if (jsonobject.has("visibility")) {
@@ -68,14 +68,14 @@ public abstract class BlockModelDeserializerMixin {
 		if (!GeometryLoaderManager.hasModelLoader(object))
 			return null;
 
-		ResourceLocation name;
+		Identifier name;
 		boolean optional;
 		if (GeometryLoaderManager.getModelLoader(object).isJsonObject()) {
 			JsonObject loaderObj = GeometryLoaderManager.getModelLoader(object).getAsJsonObject();
-			name = ResourceLocation.parse(GsonHelper.getAsString(loaderObj, "id"));
+			name = Identifier.parse(GsonHelper.getAsString(loaderObj, "id"));
 			optional = GsonHelper.getAsBoolean(loaderObj, "optional", false);
 		} else {
-			name = ResourceLocation.parse(GeometryLoaderManager.getModelLoader(object).getAsString());
+			name = Identifier.parse(GeometryLoaderManager.getModelLoader(object).getAsString());
 			optional = false;
 		}
 

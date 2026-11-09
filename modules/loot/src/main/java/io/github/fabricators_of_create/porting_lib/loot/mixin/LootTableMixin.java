@@ -21,23 +21,23 @@ import org.spongepowered.asm.mixin.injection.At;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.storage.loot.LootTable;
 
 @Mixin(value = LootTable.class, priority = 50_000)
 public class LootTableMixin implements LootTableExtensions {
 	@Unique
-	private ResourceLocation lootTableId;
+	private Identifier lootTableId;
 
 	@Override
-	public void setLootTableId(final ResourceLocation id) {
+	public void setLootTableId(final Identifier id) {
 		if (this.lootTableId != null)
 			throw new IllegalStateException("Attempted to rename loot table from '" + this.lootTableId + "' to '" + id + "': this is not supported");
 		this.lootTableId = Objects.requireNonNull(id);
 	}
 
 	@Override
-	public ResourceLocation getLootTableId() {
+	public Identifier getLootTableId() {
 		return this.lootTableId;
 	}
 
@@ -51,10 +51,10 @@ public class LootTableMixin implements LootTableExtensions {
 	@Mixin(LootTable.Builder.class)
 	public static class BuilderMixin implements LootTableBuilderExtensions {
 		@Unique
-		private ResourceLocation id;
+		private Identifier id;
 
 		@Override
-		public void port_lib$setId(ResourceLocation id) {
+		public void port_lib$setId(Identifier id) {
 			this.id = id;
 		}
 

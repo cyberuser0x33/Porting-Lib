@@ -18,7 +18,7 @@ import net.minecraft.client.renderer.RenderStateShard.TextureStateShard;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.client.renderer.texture.TextureAtlas;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import org.jspecify.annotations.Nullable;
 
@@ -53,35 +53,35 @@ public enum PortingLibRenderTypes {
 	/**
 	 * @return A RenderType fit for multi-layer solid item rendering.
 	 */
-	public static RenderType getItemLayeredSolid(ResourceLocation textureLocation) {
+	public static RenderType getItemLayeredSolid(Identifier textureLocation) {
 		return Internal.LAYERED_ITEM_SOLID.apply(textureLocation);
 	}
 
 	/**
 	 * @return A RenderType fit for multi-layer cutout item item rendering.
 	 */
-	public static RenderType getItemLayeredCutout(ResourceLocation textureLocation) {
+	public static RenderType getItemLayeredCutout(Identifier textureLocation) {
 		return Internal.LAYERED_ITEM_CUTOUT.apply(textureLocation);
 	}
 
 	/**
 	 * @return A RenderType fit for multi-layer cutout-mipped item rendering.
 	 */
-	public static RenderType getItemLayeredCutoutMipped(ResourceLocation textureLocation) {
+	public static RenderType getItemLayeredCutoutMipped(Identifier textureLocation) {
 		return Internal.LAYERED_ITEM_CUTOUT_MIPPED.apply(textureLocation);
 	}
 
 	/**
 	 * @return A RenderType fit for multi-layer translucent item rendering.
 	 */
-	public static RenderType getItemLayeredTranslucent(ResourceLocation textureLocation) {
+	public static RenderType getItemLayeredTranslucent(Identifier textureLocation) {
 		return Internal.LAYERED_ITEM_TRANSLUCENT.apply(textureLocation);
 	}
 
 	/**
 	 * @return A RenderType fit for translucent item/entity rendering, but with depth sorting disabled.
 	 */
-	public static RenderType getUnsortedTranslucent(ResourceLocation textureLocation) {
+	public static RenderType getUnsortedTranslucent(Identifier textureLocation) {
 		return Internal.UNSORTED_TRANSLUCENT.apply(textureLocation);
 	}
 
@@ -89,7 +89,7 @@ public enum PortingLibRenderTypes {
 	 * @return A RenderType fit for translucent item/entity rendering, but with diffuse lighting disabled
 	 *         so that fullbright quads look correct.
 	 */
-	public static RenderType getUnlitTranslucent(ResourceLocation textureLocation) {
+	public static RenderType getUnlitTranslucent(Identifier textureLocation) {
 		return Internal.UNLIT_TRANSLUCENT_SORTED.apply(textureLocation);
 	}
 
@@ -98,63 +98,63 @@ public enum PortingLibRenderTypes {
 	 *         so that fullbright quads look correct.
 	 * @param sortingEnabled If false, depth sorting will not be performed.
 	 */
-	public static RenderType getUnlitTranslucent(ResourceLocation textureLocation, boolean sortingEnabled) {
+	public static RenderType getUnlitTranslucent(Identifier textureLocation, boolean sortingEnabled) {
 		return (sortingEnabled ? Internal.UNLIT_TRANSLUCENT_SORTED : Internal.UNLIT_TRANSLUCENT_UNSORTED).apply(textureLocation);
 	}
 
 	/**
-	 * @return Same as {@link RenderType#entityCutout(ResourceLocation)}, but with mipmapping enabled.
+	 * @return Same as {@link RenderType#entityCutout(Identifier)}, but with mipmapping enabled.
 	 */
-	public static RenderType getEntityCutoutMipped(ResourceLocation textureLocation) {
+	public static RenderType getEntityCutoutMipped(Identifier textureLocation) {
 		return Internal.LAYERED_ITEM_CUTOUT_MIPPED.apply(textureLocation);
 	}
 
 	/**
-	 * @return Replacement of {@link RenderType#text(ResourceLocation)}, but with optional linear texture filtering.
+	 * @return Replacement of {@link RenderType#text(Identifier)}, but with optional linear texture filtering.
 	 */
-	public static RenderType getText(ResourceLocation locationIn) {
+	public static RenderType getText(Identifier locationIn) {
 		return Internal.TEXT.apply(locationIn);
 	}
 
 	/**
-	 * @return Replacement of {@link RenderType#textIntensity(ResourceLocation)}, but with optional linear texture filtering.
+	 * @return Replacement of {@link RenderType#textIntensity(Identifier)}, but with optional linear texture filtering.
 	 */
-	public static RenderType getTextIntensity(ResourceLocation locationIn) {
+	public static RenderType getTextIntensity(Identifier locationIn) {
 		return Internal.TEXT_INTENSITY.apply(locationIn);
 	}
 
 	/**
-	 * @return Replacement of {@link RenderType#textPolygonOffset(ResourceLocation)}, but with optional linear texture filtering.
+	 * @return Replacement of {@link RenderType#textPolygonOffset(Identifier)}, but with optional linear texture filtering.
 	 */
-	public static RenderType getTextPolygonOffset(ResourceLocation locationIn) {
+	public static RenderType getTextPolygonOffset(Identifier locationIn) {
 		return Internal.TEXT_POLYGON_OFFSET.apply(locationIn);
 	}
 
 	/**
-	 * @return Replacement of {@link RenderType#textIntensityPolygonOffset(ResourceLocation)}, but with optional linear texture filtering.
+	 * @return Replacement of {@link RenderType#textIntensityPolygonOffset(Identifier)}, but with optional linear texture filtering.
 	 */
-	public static RenderType getTextIntensityPolygonOffset(ResourceLocation locationIn) {
+	public static RenderType getTextIntensityPolygonOffset(Identifier locationIn) {
 		return Internal.TEXT_INTENSITY_POLYGON_OFFSET.apply(locationIn);
 	}
 
 	/**
-	 * @return Replacement of {@link RenderType#textSeeThrough(ResourceLocation)}, but with optional linear texture filtering.
+	 * @return Replacement of {@link RenderType#textSeeThrough(Identifier)}, but with optional linear texture filtering.
 	 */
-	public static RenderType getTextSeeThrough(ResourceLocation locationIn) {
+	public static RenderType getTextSeeThrough(Identifier locationIn) {
 		return Internal.TEXT_SEETHROUGH.apply(locationIn);
 	}
 
 	/**
-	 * @return Replacement of {@link RenderType#textIntensitySeeThrough(ResourceLocation)}, but with optional linear texture filtering.
+	 * @return Replacement of {@link RenderType#textIntensitySeeThrough(Identifier)}, but with optional linear texture filtering.
 	 */
-	public static RenderType getTextIntensitySeeThrough(ResourceLocation locationIn) {
+	public static RenderType getTextIntensitySeeThrough(Identifier locationIn) {
 		return Internal.TEXT_INTENSITY_SEETHROUGH.apply(locationIn);
 	}
 
 	/**
 	 * @return A variation of {@link RenderType#translucent()} that uses {@link OutputStateShard#PARTICLES_TARGET} to allow fabulous transparency sorting when using {@link RenderLevelStageEvent}
 	 */
-	public static RenderType getTranslucentParticlesTarget(ResourceLocation locationIn) {
+	public static RenderType getTranslucentParticlesTarget(Identifier locationIn) {
 		return Internal.TRANSLUCENT_PARTICLES_TARGET.apply(locationIn);
 	}
 
@@ -176,9 +176,9 @@ public enum PortingLibRenderTypes {
 	private static class Internal {
 		private static final RenderStateShard.ShaderStateShard RENDERTYPE_ENTITY_TRANSLUCENT_UNLIT_SHADER = new RenderStateShard.ShaderStateShard(PortingLibRenderTypes::getEntityTranslucentUnlitShader);
 
-		public static Function<ResourceLocation, RenderType> UNSORTED_TRANSLUCENT = Util.memoize(Internal::unsortedTranslucent);
+		public static Function<Identifier, RenderType> UNSORTED_TRANSLUCENT = Util.memoize(Internal::unsortedTranslucent);
 
-		private static RenderType unsortedTranslucent(ResourceLocation textureLocation) {
+		private static RenderType unsortedTranslucent(Identifier textureLocation) {
 			final boolean sortingEnabled = false;
 			var renderState = RenderType.CompositeState.builder()
 					.setShaderState(RenderType.RENDERTYPE_ENTITY_TRANSLUCENT_SHADER)
@@ -191,10 +191,10 @@ public enum PortingLibRenderTypes {
 			return RenderType.create("neoforge_entity_unsorted_translucent", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, true, sortingEnabled, renderState);
 		}
 
-		public static Function<ResourceLocation, RenderType> UNLIT_TRANSLUCENT_SORTED = Util.memoize(tex -> Internal.unlitTranslucent(tex, true));
-		public static Function<ResourceLocation, RenderType> UNLIT_TRANSLUCENT_UNSORTED = Util.memoize(tex -> Internal.unlitTranslucent(tex, false));
+		public static Function<Identifier, RenderType> UNLIT_TRANSLUCENT_SORTED = Util.memoize(tex -> Internal.unlitTranslucent(tex, true));
+		public static Function<Identifier, RenderType> UNLIT_TRANSLUCENT_UNSORTED = Util.memoize(tex -> Internal.unlitTranslucent(tex, false));
 
-		private static RenderType unlitTranslucent(ResourceLocation textureLocation, boolean sortingEnabled) {
+		private static RenderType unlitTranslucent(Identifier textureLocation, boolean sortingEnabled) {
 			var renderState = RenderType.CompositeState.builder()
 					.setShaderState(RENDERTYPE_ENTITY_TRANSLUCENT_UNLIT_SHADER)
 					.setTextureState(new TextureStateShard(textureLocation, false, false))
@@ -206,9 +206,9 @@ public enum PortingLibRenderTypes {
 			return RenderType.create("neoforge_entity_unlit_translucent", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, true, sortingEnabled, renderState);
 		}
 
-		public static Function<ResourceLocation, RenderType> LAYERED_ITEM_SOLID = Util.memoize(Internal::layeredItemSolid);
+		public static Function<Identifier, RenderType> LAYERED_ITEM_SOLID = Util.memoize(Internal::layeredItemSolid);
 
-		private static RenderType layeredItemSolid(ResourceLocation locationIn) {
+		private static RenderType layeredItemSolid(Identifier locationIn) {
 			var rendertype$state = RenderType.CompositeState.builder()
 					.setShaderState(RenderType.RENDERTYPE_ENTITY_SOLID_SHADER)
 					.setTextureState(new RenderStateShard.TextureStateShard(locationIn, false, false))
@@ -219,9 +219,9 @@ public enum PortingLibRenderTypes {
 			return RenderType.create("neoforge_item_entity_solid", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, true, false, rendertype$state);
 		}
 
-		public static Function<ResourceLocation, RenderType> LAYERED_ITEM_CUTOUT = Util.memoize(Internal::layeredItemCutout);
+		public static Function<Identifier, RenderType> LAYERED_ITEM_CUTOUT = Util.memoize(Internal::layeredItemCutout);
 
-		private static RenderType layeredItemCutout(ResourceLocation locationIn) {
+		private static RenderType layeredItemCutout(Identifier locationIn) {
 			var rendertype$state = RenderType.CompositeState.builder()
 					.setShaderState(RenderType.RENDERTYPE_ENTITY_CUTOUT_SHADER)
 					.setTextureState(new RenderStateShard.TextureStateShard(locationIn, false, false))
@@ -232,9 +232,9 @@ public enum PortingLibRenderTypes {
 			return RenderType.create("neoforge_item_entity_cutout", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, true, false, rendertype$state);
 		}
 
-		public static Function<ResourceLocation, RenderType> LAYERED_ITEM_CUTOUT_MIPPED = Util.memoize(Internal::layeredItemCutoutMipped);
+		public static Function<Identifier, RenderType> LAYERED_ITEM_CUTOUT_MIPPED = Util.memoize(Internal::layeredItemCutoutMipped);
 
-		private static RenderType layeredItemCutoutMipped(ResourceLocation locationIn) {
+		private static RenderType layeredItemCutoutMipped(Identifier locationIn) {
 			var rendertype$state = RenderType.CompositeState.builder()
 					.setShaderState(RenderType.RENDERTYPE_ENTITY_SMOOTH_CUTOUT_SHADER)
 					.setTextureState(new RenderStateShard.TextureStateShard(locationIn, false, true))
@@ -245,9 +245,9 @@ public enum PortingLibRenderTypes {
 			return RenderType.create("neoforge_item_entity_cutout_mipped", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, true, false, rendertype$state);
 		}
 
-		public static Function<ResourceLocation, RenderType> LAYERED_ITEM_TRANSLUCENT = Util.memoize(Internal::layeredItemTranslucent);
+		public static Function<Identifier, RenderType> LAYERED_ITEM_TRANSLUCENT = Util.memoize(Internal::layeredItemTranslucent);
 
-		private static RenderType layeredItemTranslucent(ResourceLocation locationIn) {
+		private static RenderType layeredItemTranslucent(Identifier locationIn) {
 			var rendertype$state = RenderType.CompositeState.builder()
 					.setShaderState(RenderType.RENDERTYPE_ENTITY_TRANSLUCENT_SHADER)
 					.setTextureState(new RenderStateShard.TextureStateShard(locationIn, false, false))
@@ -258,9 +258,9 @@ public enum PortingLibRenderTypes {
 			return RenderType.create("neoforge_item_entity_translucent_cull", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, true, true, rendertype$state);
 		}
 
-		public static Function<ResourceLocation, RenderType> TEXT = Util.memoize(Internal::getText);
+		public static Function<Identifier, RenderType> TEXT = Util.memoize(Internal::getText);
 
-		private static RenderType getText(ResourceLocation locationIn) {
+		private static RenderType getText(Identifier locationIn) {
 			var rendertype$state = RenderType.CompositeState.builder()
 					.setShaderState(RenderType.RENDERTYPE_TEXT_SHADER)
 					.setTextureState(new CustomizableTextureState(locationIn, () -> PortingLibRenderTypes.enableTextTextureLinearFiltering, () -> false))
@@ -270,9 +270,9 @@ public enum PortingLibRenderTypes {
 			return RenderType.create("neoforge_text", DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP, VertexFormat.Mode.QUADS, 256, false, true, rendertype$state);
 		}
 
-		public static Function<ResourceLocation, RenderType> TEXT_INTENSITY = Util.memoize(Internal::getTextIntensity);
+		public static Function<Identifier, RenderType> TEXT_INTENSITY = Util.memoize(Internal::getTextIntensity);
 
-		private static RenderType getTextIntensity(ResourceLocation locationIn) {
+		private static RenderType getTextIntensity(Identifier locationIn) {
 			var rendertype$state = RenderType.CompositeState.builder()
 					.setShaderState(RenderType.RENDERTYPE_TEXT_INTENSITY_SHADER)
 					.setTextureState(new CustomizableTextureState(locationIn, () -> PortingLibRenderTypes.enableTextTextureLinearFiltering, () -> false))
@@ -282,9 +282,9 @@ public enum PortingLibRenderTypes {
 			return RenderType.create("neoforge_text_intensity", DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP, VertexFormat.Mode.QUADS, 256, false, true, rendertype$state);
 		}
 
-		public static Function<ResourceLocation, RenderType> TEXT_POLYGON_OFFSET = Util.memoize(Internal::getTextPolygonOffset);
+		public static Function<Identifier, RenderType> TEXT_POLYGON_OFFSET = Util.memoize(Internal::getTextPolygonOffset);
 
-		private static RenderType getTextPolygonOffset(ResourceLocation locationIn) {
+		private static RenderType getTextPolygonOffset(Identifier locationIn) {
 			var rendertype$state = RenderType.CompositeState.builder()
 					.setShaderState(RenderType.RENDERTYPE_TEXT_SHADER)
 					.setTextureState(new CustomizableTextureState(locationIn, () -> PortingLibRenderTypes.enableTextTextureLinearFiltering, () -> false))
@@ -295,9 +295,9 @@ public enum PortingLibRenderTypes {
 			return RenderType.create("neoforge_text_polygon_offset", DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP, VertexFormat.Mode.QUADS, 256, false, true, rendertype$state);
 		}
 
-		public static Function<ResourceLocation, RenderType> TEXT_INTENSITY_POLYGON_OFFSET = Util.memoize(Internal::getTextIntensityPolygonOffset);
+		public static Function<Identifier, RenderType> TEXT_INTENSITY_POLYGON_OFFSET = Util.memoize(Internal::getTextIntensityPolygonOffset);
 
-		private static RenderType getTextIntensityPolygonOffset(ResourceLocation locationIn) {
+		private static RenderType getTextIntensityPolygonOffset(Identifier locationIn) {
 			var rendertype$state = RenderType.CompositeState.builder()
 					.setShaderState(RenderType.RENDERTYPE_TEXT_INTENSITY_SHADER)
 					.setTextureState(new CustomizableTextureState(locationIn, () -> PortingLibRenderTypes.enableTextTextureLinearFiltering, () -> false))
@@ -308,9 +308,9 @@ public enum PortingLibRenderTypes {
 			return RenderType.create("neoforge_text_intensity_polygon_offset", DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP, VertexFormat.Mode.QUADS, 256, false, true, rendertype$state);
 		}
 
-		public static Function<ResourceLocation, RenderType> TEXT_SEETHROUGH = Util.memoize(Internal::getTextSeeThrough);
+		public static Function<Identifier, RenderType> TEXT_SEETHROUGH = Util.memoize(Internal::getTextSeeThrough);
 
-		private static RenderType getTextSeeThrough(ResourceLocation locationIn) {
+		private static RenderType getTextSeeThrough(Identifier locationIn) {
 			var rendertype$state = RenderType.CompositeState.builder()
 					.setShaderState(RenderType.RENDERTYPE_TEXT_SEE_THROUGH_SHADER)
 					.setTextureState(new CustomizableTextureState(locationIn, () -> PortingLibRenderTypes.enableTextTextureLinearFiltering, () -> false))
@@ -322,9 +322,9 @@ public enum PortingLibRenderTypes {
 			return RenderType.create("neoforge_text_see_through", DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP, VertexFormat.Mode.QUADS, 256, false, true, rendertype$state);
 		}
 
-		public static Function<ResourceLocation, RenderType> TEXT_INTENSITY_SEETHROUGH = Util.memoize(Internal::getTextIntensitySeeThrough);
+		public static Function<Identifier, RenderType> TEXT_INTENSITY_SEETHROUGH = Util.memoize(Internal::getTextIntensitySeeThrough);
 
-		private static RenderType getTextIntensitySeeThrough(ResourceLocation locationIn) {
+		private static RenderType getTextIntensitySeeThrough(Identifier locationIn) {
 			var rendertype$state = RenderType.CompositeState.builder()
 					.setShaderState(RenderType.RENDERTYPE_TEXT_INTENSITY_SEE_THROUGH_SHADER)
 					.setTextureState(new CustomizableTextureState(locationIn, () -> PortingLibRenderTypes.enableTextTextureLinearFiltering, () -> false))
@@ -336,9 +336,9 @@ public enum PortingLibRenderTypes {
 			return RenderType.create("neoforge_text_see_through", DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP, VertexFormat.Mode.QUADS, 256, false, true, rendertype$state);
 		}
 
-		public static Function<ResourceLocation, RenderType> TRANSLUCENT_PARTICLES_TARGET = Util.memoize(Internal::getTranslucentParticlesTarget);
+		public static Function<Identifier, RenderType> TRANSLUCENT_PARTICLES_TARGET = Util.memoize(Internal::getTranslucentParticlesTarget);
 
-		private static RenderType getTranslucentParticlesTarget(ResourceLocation locationIn) {
+		private static RenderType getTranslucentParticlesTarget(Identifier locationIn) {
 			var rendertype$state = RenderType.CompositeState.builder()
 					.setShaderState(RenderType.RENDERTYPE_TRANSLUCENT_SHADER)
 					.setTextureState(new RenderStateShard.TextureStateShard(locationIn, false, true))
@@ -354,7 +354,7 @@ public enum PortingLibRenderTypes {
 		private final BooleanSupplier blurSupplier;
 		private final BooleanSupplier mipmapSupplier;
 
-		private CustomizableTextureState(ResourceLocation resLoc, BooleanSupplier blur, BooleanSupplier mipmap) {
+		private CustomizableTextureState(Identifier resLoc, BooleanSupplier blur, BooleanSupplier mipmap) {
 			super(resLoc, blur.getAsBoolean(), mipmap.getAsBoolean());
 			blurSupplier = blur;
 			mipmapSupplier = mipmap;

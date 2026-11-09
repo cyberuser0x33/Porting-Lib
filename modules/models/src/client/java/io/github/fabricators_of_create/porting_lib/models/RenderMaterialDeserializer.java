@@ -16,7 +16,7 @@ import net.fabricmc.fabric.api.renderer.v1.RendererAccess;
 import net.fabricmc.fabric.api.renderer.v1.material.BlendMode;
 import net.fabricmc.fabric.api.renderer.v1.material.MaterialFinder;
 import net.fabricmc.fabric.api.renderer.v1.material.RenderMaterial;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class RenderMaterialDeserializer implements JsonDeserializer<RenderMaterial> {
 	@Override
@@ -26,7 +26,7 @@ public class RenderMaterialDeserializer implements JsonDeserializer<RenderMateri
 			throw new JsonParseException("The Fabric Rendering API is not available. If you have Sodium, install Indium!");
 		MaterialFinder finder = renderer.materialFinder();
 		JsonObject obj = json.getAsJsonObject();
-		forEachSpriteIndex(obj, "blendMode", (spriteIndex, jsonElement) -> finder.blendMode(spriteIndex, BlendMode.fromRenderLayer(RenderTypeUtil.get(ResourceLocation.parse(jsonElement.getAsString())))));
+		forEachSpriteIndex(obj, "blendMode", (spriteIndex, jsonElement) -> finder.blendMode(spriteIndex, BlendMode.fromRenderLayer(RenderTypeUtil.get(Identifier.parse(jsonElement.getAsString())))));
 		forEachSpriteIndex(obj, "disableColorIndex", (spriteIndex, jsonElement) -> finder.disableColorIndex(spriteIndex, jsonElement.getAsBoolean()));
 		forEachSpriteIndex(obj, "disableDiffuse", (spriteIndex, jsonElement) -> finder.disableDiffuse(spriteIndex, jsonElement.getAsBoolean()));
 		forEachSpriteIndex(obj, "disableAo", (spriteIndex, jsonElement) -> finder.disableAo(spriteIndex, jsonElement.getAsBoolean()));

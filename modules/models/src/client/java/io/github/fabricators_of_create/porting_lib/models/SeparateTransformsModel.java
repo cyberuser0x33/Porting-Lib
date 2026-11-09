@@ -27,7 +27,7 @@ import net.minecraft.client.resources.model.ModelState;
 import net.minecraft.client.resources.model.UnbakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemDisplayContext;
@@ -60,7 +60,7 @@ public class SeparateTransformsModel implements IUnbakedGeometry<SeparateTransfo
 	}
 
 	@Override
-	public void resolveParents(Function<ResourceLocation, UnbakedModel> modelGetter, IGeometryBakingContext context) {
+	public void resolveParents(Function<Identifier, UnbakedModel> modelGetter, IGeometryBakingContext context) {
 		baseModel.resolveParents(modelGetter);
 		perspectives.values().forEach(model -> model.resolveParents(modelGetter));
 	}

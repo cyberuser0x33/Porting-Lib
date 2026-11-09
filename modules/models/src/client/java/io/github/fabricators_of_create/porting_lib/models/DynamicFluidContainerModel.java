@@ -31,7 +31,7 @@ import net.minecraft.client.resources.model.Material;
 import net.minecraft.client.resources.model.ModelBaker;
 import net.minecraft.client.resources.model.ModelState;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
@@ -113,7 +113,7 @@ public class DynamicFluidContainerModel implements IUnbakedGeometry<DynamicFluid
 		}
 
 		// We need to disable GUI 3D and block lighting for this to render properly
-		var itemContext = StandaloneGeometryBakingContext.builder(context).withGui3d(false).withUseBlockLight(false).build(ResourceLocation.fromNamespaceAndPath("neoforge", "dynamic_fluid_container"));
+		var itemContext = StandaloneGeometryBakingContext.builder(context).withGui3d(false).withUseBlockLight(false).build(Identifier.fromNamespaceAndPath("neoforge", "dynamic_fluid_container"));
 		var modelBuilder = CompositeModel.Baked.builder(itemContext, particleSprite, new ContainedFluidOverrideHandler(overrides, baker, itemContext, this), context.getTransforms());
 
 		var normalRenderTypes = getLayerRenderTypes(false);
@@ -170,7 +170,7 @@ public class DynamicFluidContainerModel implements IUnbakedGeometry<DynamicFluid
 			if (jsonObject.has("variant")) {
 				variant = FluidVariant.CODEC.decode(JsonOps.INSTANCE, jsonObject).getOrThrow().getFirst();
 			} else if (jsonObject.has("fluid")) {
-				ResourceLocation fluidName = ResourceLocation.parse(jsonObject.get("fluid").getAsString());
+				Identifier fluidName = Identifier.parse(jsonObject.get("fluid").getAsString());
 
 				Fluid fluid = BuiltInRegistries.FLUID.get(fluidName);
 				variant = FluidVariant.of(fluid);

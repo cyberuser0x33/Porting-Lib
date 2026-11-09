@@ -16,7 +16,7 @@ import net.minecraft.client.gui.GuiGraphics;
 
 import net.minecraft.client.gui.components.spectator.SpectatorGui;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import net.minecraft.world.entity.PlayerRideableJumping;
 
@@ -40,7 +40,7 @@ public abstract class GuiMixin {
 	private final GuiLayerManager port_lib$layerManager = GuiLayerRegistry.getLayerManager();
 
 	@Unique
-	private void port_lib$tryRenderLayer(ResourceLocation layerId, GuiGraphics guiGraphics, DeltaTracker deltaTracker, Runnable renderCallback) {
+	private void port_lib$tryRenderLayer(Identifier layerId, GuiGraphics guiGraphics, DeltaTracker deltaTracker, Runnable renderCallback) {
 		if (!port_lib$layerManager.callPreRenderEvent(layerId, guiGraphics, deltaTracker)) {
 			renderCallback.run();
 			port_lib$layerManager.callPostRenderEvent(layerId, guiGraphics, deltaTracker);

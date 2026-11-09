@@ -17,7 +17,7 @@ import io.github.fabricators_of_create.porting_lib.models.geometry.IGeometryLoad
 import io.github.fabricators_of_create.porting_lib.models.obj.ObjModel.ModelSettings;
 import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.minecraft.client.Minecraft;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.GsonHelper;
@@ -29,12 +29,12 @@ import net.minecraft.util.GsonHelper;
  * {@link ObjMaterialLibrary material library} override.
  */
 public class ObjLoader implements ModelLoadingPlugin, IGeometryLoader<ObjModel> {
-	public static final ResourceLocation ID = PortingLib.id("obj");
+	public static final Identifier ID = PortingLib.id("obj");
 	public static final ObjLoader INSTANCE = new ObjLoader();
 	public static final String OBJ_MARKER = PortingLib.id("obj_marker").toString();
 
 	private final Map<ModelSettings, ObjModel> modelCache = Maps.newConcurrentMap();
-	private final Map<ResourceLocation, ObjMaterialLibrary> materialCache = Maps.newConcurrentMap();
+	private final Map<Identifier, ObjMaterialLibrary> materialCache = Maps.newConcurrentMap();
 
 	@Override
 	public void onInitializeModelLoader(Context ctx) {
@@ -48,7 +48,7 @@ public class ObjLoader implements ModelLoadingPlugin, IGeometryLoader<ObjModel> 
 	/**
 	 * models/misc is automatically scanned for OBJ models.
 	 */
-	private void findModels(Consumer<ResourceLocation> out) {
+	private void findModels(Consumer<Identifier> out) {
 		ResourceManager manager = getResourceManager();
 		manager.listResources("models/misc", id -> {
 			if (id.getPath().endsWith(".json")) {
@@ -62,7 +62,7 @@ public class ObjLoader implements ModelLoadingPlugin, IGeometryLoader<ObjModel> 
 		});
 	}
 
-	private JsonObject tryLoadModelJson(ResourceLocation id, Resource resource) {
+	private JsonObject tryLoadModelJson(Identifier id, Resource resource) {
 		try {
 			JsonObject json = JsonParser.parseReader(resource.openAsReader()).getAsJsonObject();
 			if (json.has(OBJ_MARKER)) {
@@ -76,7 +76,7 @@ public class ObjLoader implements ModelLoadingPlugin, IGeometryLoader<ObjModel> 
 
 	private Either<ModelSettings, RuntimeException> tryReadSettings(JsonObject json) {
 		try {
-			ResourceLocation objLocation = ResourceLocation.parse(GsonHelper.getAsString(json, "model"));
+			Identifier objLocation = Identifier.parse(GsonHelper.getAsString(json, "model"));
 			return Either.left(new ModelSettings(objLocation,
 					GsonHelper.getAsBoolean(json, "automaticCulling", true),
 					GsonHelper.getAsBoolean(json, "shadeQuads", true),
@@ -112,7 +112,7 @@ public class ObjLoader implements ModelLoadingPlugin, IGeometryLoader<ObjModel> 
 		});
 	}
 
-	public ObjMaterialLibrary loadMaterialLibrary(ResourceLocation materialLocation) {
+	public ObjMaterialLibrary loadMaterialLibrary(Identifier materialLocation) {
 		return materialCache.computeIfAbsent(materialLocation, location -> {
 			Resource resource = getResourceManager().getResource(location).orElseThrow();
 			try (ObjTokenizer rdr = new ObjTokenizer(resource.open())) {

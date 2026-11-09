@@ -5,7 +5,7 @@ import io.github.fabricators_of_create.porting_lib.gui.mixin.GuiAccessor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.LayeredDraw;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.util.function.UnaryOperator;
 
@@ -72,7 +72,7 @@ public class GuiLayerRegistry {
 	 * @param id    A unique resource id for this layer
 	 * @param layer The layer
 	 */
-	public static void registerBelowAll(ResourceLocation id, LayeredDraw.Layer layer) {
+	public static void registerBelowAll(Identifier id, LayeredDraw.Layer layer) {
 		getLayerManager().register(Ordering.BEFORE, null, id, layer);
 	}
 
@@ -84,7 +84,7 @@ public class GuiLayerRegistry {
 	 * @param id    A unique resource id for this layer
 	 * @param layer The layer
 	 */
-	public static void registerBelow(ResourceLocation other, ResourceLocation id, LayeredDraw.Layer layer) {
+	public static void registerBelow(Identifier other, Identifier id, LayeredDraw.Layer layer) {
 		getLayerManager().register(Ordering.BEFORE, other, id, layer);
 	}
 
@@ -96,7 +96,7 @@ public class GuiLayerRegistry {
 	 * @param id    A unique resource id for this layer
 	 * @param layer The layer
 	 */
-	public static void registerAbove(ResourceLocation other, ResourceLocation id, LayeredDraw.Layer layer) {
+	public static void registerAbove(Identifier other, Identifier id, LayeredDraw.Layer layer) {
 		getLayerManager().register(Ordering.AFTER, other, id, layer);
 	}
 
@@ -106,7 +106,7 @@ public class GuiLayerRegistry {
 	 * @param id    A unique resource id for this layer
 	 * @param layer The layer
 	 */
-	public static void registerAboveAll(ResourceLocation id, LayeredDraw.Layer layer) {
+	public static void registerAboveAll(Identifier id, LayeredDraw.Layer layer) {
 		getLayerManager().register(Ordering.AFTER, null, id, layer);
 	}
 
@@ -116,10 +116,10 @@ public class GuiLayerRegistry {
 	 * @param id          the id of the layer to replace
 	 * @param replacement the layer to replace it with
 	 * @throws IllegalArgumentException if a layer with the given {@code id} is not yet registered
-	 * @see #wrapLayer(ResourceLocation, UnaryOperator) use {@code wrapLayer} if you'd like to
+	 * @see #wrapLayer(Identifier, UnaryOperator) use {@code wrapLayer} if you'd like to
 	 *      wrap the layer to apply pose stack transformations
 	 */
-	public static void replaceLayer(ResourceLocation id, LayeredDraw.Layer replacement) {
+	public static void replaceLayer(Identifier id, LayeredDraw.Layer replacement) {
 		wrapLayer(id, old -> replacement);
 	}
 
@@ -132,7 +132,7 @@ public class GuiLayerRegistry {
 	 * @param wrapper an unary operator which takes in the old layer and returns the new layer that wraps the old one
 	 * @throws IllegalArgumentException if a layer with the given {@code id} is not yet registered
 	 */
-	public static void wrapLayer(ResourceLocation id, UnaryOperator<LayeredDraw.Layer> wrapper) {
+	public static void wrapLayer(Identifier id, UnaryOperator<LayeredDraw.Layer> wrapper) {
 		getLayerManager().wrapLayer(id, wrapper);
 	}
 

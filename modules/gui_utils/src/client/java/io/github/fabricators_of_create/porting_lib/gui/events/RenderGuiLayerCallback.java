@@ -7,7 +7,7 @@ import net.fabricmc.fabric.api.event.EventFactory;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.LayeredDraw;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 /**
  * Fired when a GUI layer is rendered to the screen.
@@ -50,7 +50,7 @@ public interface RenderGuiLayerCallback {
 	 * @see Post
 	 */
 	interface Pre {
-		boolean preRenderGuiLayer(GuiGraphics guiGraphics, DeltaTracker partialTick, ResourceLocation name, LayeredDraw.Layer layer);
+		boolean preRenderGuiLayer(GuiGraphics guiGraphics, DeltaTracker partialTick, Identifier name, LayeredDraw.Layer layer);
 	}
 
 	/**
@@ -61,6 +61,6 @@ public interface RenderGuiLayerCallback {
 	 * <p>This event is fired only on the {@linkplain EnvType#CLIENT logical client}.</p>
 	 */
 	interface Post {
-		void postRenderGuiLayer(GuiGraphics guiGraphics, DeltaTracker partialTick, ResourceLocation name, LayeredDraw.Layer layer);
+		void postRenderGuiLayer(GuiGraphics guiGraphics, DeltaTracker partialTick, Identifier name, LayeredDraw.Layer layer);
 	}
 }

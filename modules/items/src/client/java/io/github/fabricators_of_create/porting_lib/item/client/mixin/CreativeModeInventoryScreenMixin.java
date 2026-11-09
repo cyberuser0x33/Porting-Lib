@@ -82,8 +82,8 @@ public abstract class CreativeModeInventoryScreenMixin extends AbstractContainer
 		}
 	}
 
-//	@ModifyArg(method = "renderBg", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;blit(Lnet/minecraft/resources/ResourceLocation;IIIIII)V", ordinal = 1))
-//	private ResourceLocation modifyTabImage(ResourceLocation original) { TODO: I don't think this is needed anymore neo forge doesn't even use the method anymore...
+//	@ModifyArg(method = "renderBg", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;blit(Lnet/minecraft/resources/Identifier;IIIIII)V", ordinal = 1))
+//	private Identifier modifyTabImage(Identifier original) { TODO: I don't think this is needed anymore neo forge doesn't even use the method anymore...
 //		PortingLibCreativeTab.TabData data = ((CreativeModeTabExt) selectedTab).getPortingTabData();
 //		if (data != null)
 //			return data.tabsImage();

@@ -15,7 +15,7 @@ import io.github.fabricators_of_create.porting_lib.resources.conditions.PortingL
 import io.github.fabricators_of_create.porting_lib.resources.conditions.WithConditions;
 import io.github.fabricators_of_create.porting_lib.resources.extensions.ContextAwareReloadListenerExtension;
 import net.minecraft.resources.RegistryOps;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeManager;
 
@@ -29,7 +29,7 @@ import java.util.function.Function;
 @Mixin(RecipeManager.class)
 public abstract class RecipeManagerMixin {
 	@WrapOperation(method = "apply(Ljava/util/Map;Lnet/minecraft/server/packs/resources/ResourceManager;Lnet/minecraft/util/profiling/ProfilerFiller;)V", at = @At(value = "INVOKE", target = "Lcom/mojang/serialization/DataResult;getOrThrow(Ljava/util/function/Function;)Ljava/lang/Object;"))
-	private <E, R> R port_lib$tryUseConditionalRecipeDecode(DataResult<R> instance, Function<String, E> stringEFunction, Operation<R> original, @Local RegistryOps<JsonElement> registryOps, @Local Map.Entry<ResourceLocation, JsonElement> entry, @Share("conditionalRegistryOps") LocalRef<ConditionalOps<JsonElement>> conditionalOps) {
+	private <E, R> R port_lib$tryUseConditionalRecipeDecode(DataResult<R> instance, Function<String, E> stringEFunction, Operation<R> original, @Local RegistryOps<JsonElement> registryOps, @Local Map.Entry<Identifier, JsonElement> entry, @Share("conditionalRegistryOps") LocalRef<ConditionalOps<JsonElement>> conditionalOps) {
 		if (conditionalOps.get() == null)
 			conditionalOps.set(new ConditionalOps<>(registryOps, ((ContextAwareReloadListenerExtension) this).port_lib$getContext()));
 

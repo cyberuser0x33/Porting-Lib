@@ -6,7 +6,7 @@ import net.minecraft.client.resources.model.ModelBakery;
 
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.client.resources.model.UnbakedModel;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.profiling.ProfilerFiller;
 
 import org.spongepowered.asm.mixin.Mixin;
@@ -22,7 +22,7 @@ import java.util.Set;
 @Mixin(ModelBakery.class)
 public abstract class ModelBakeryMixin {
 	@Shadow
-	abstract UnbakedModel getModel(ResourceLocation modelLocation);
+	abstract UnbakedModel getModel(Identifier modelLocation);
 
 	@Shadow
 	protected abstract void registerModelAndLoadDependencies(ModelResourceLocation modelLocation, UnbakedModel model);

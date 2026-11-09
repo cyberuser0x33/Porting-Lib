@@ -7,18 +7,18 @@ import net.fabricmc.fabric.api.recipe.v1.ingredient.CustomIngredientSerializer;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
-public record IngredientType<T extends CustomIngredient>(ResourceLocation id, MapCodec<T> codec, StreamCodec<RegistryFriendlyByteBuf, T> streamCodec) implements CustomIngredientSerializer<T> {
+public record IngredientType<T extends CustomIngredient>(Identifier id, MapCodec<T> codec, StreamCodec<RegistryFriendlyByteBuf, T> streamCodec) implements CustomIngredientSerializer<T> {
 	/**
 	 * Constructor for ingredient types that use a regular codec for network syncing.
 	 */
-	public IngredientType(ResourceLocation id, MapCodec<T> codec) {
+	public IngredientType(Identifier id, MapCodec<T> codec) {
 		this(id, codec, ByteBufCodecs.fromCodecWithRegistries(codec.codec()));
 	}
 
 	@Override
-	public ResourceLocation getIdentifier() {
+	public Identifier getIdentifier() {
 		return id;
 	}
 

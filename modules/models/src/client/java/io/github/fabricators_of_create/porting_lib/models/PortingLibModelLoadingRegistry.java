@@ -6,7 +6,7 @@ import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.fabricmc.fabric.api.renderer.v1.material.RenderMaterial;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.BlockModel;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import net.minecraft.server.packs.resources.Resource;
 
@@ -20,7 +20,7 @@ import java.util.Optional;
 public enum PortingLibModelLoadingRegistry implements ModelLoadingPlugin {
 	INSTANCE;
 
-	public static final Map<ResourceLocation, ModelLoader> LOADERS = new HashMap<>();
+	public static final Map<Identifier, ModelLoader> LOADERS = new HashMap<>();
 
 	public static final Gson GSON = BlockModel.GSON.newBuilder().registerTypeAdapter(RenderMaterial.class, new RenderMaterialDeserializer()).create();
 
@@ -33,8 +33,8 @@ public enum PortingLibModelLoadingRegistry implements ModelLoadingPlugin {
 	 * @throws IOException on an IO error
 	 * @throws FileNotFoundException when the model's resource does not exist
 	 */
-	public static BufferedReader getModelJson(ResourceLocation location) throws IOException {
-		ResourceLocation file = ResourceLocation.fromNamespaceAndPath(location.getNamespace(), "models/" + location.getPath() + ".json");
+	public static BufferedReader getModelJson(Identifier location) throws IOException {
+		Identifier file = Identifier.fromNamespaceAndPath(location.getNamespace(), "models/" + location.getPath() + ".json");
 		Optional<Resource> resource = Minecraft.getInstance().getResourceManager().getResource(file);
 		return resource.orElseThrow(() -> new FileNotFoundException(file.toString())).openAsReader();
 	}

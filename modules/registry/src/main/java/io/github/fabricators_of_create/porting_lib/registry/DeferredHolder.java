@@ -195,7 +195,7 @@ public class DeferredHolder<R, T extends R> implements Holder<R>, Supplier<T>, D
 	}
 
 	/**
-	 * {@return true if the passed ResourceLocation is the same as the ID of the target object}
+	 * {@return true if the passed Identifier is the same as the ID of the target object}
 	 */
 	@Override
 	public boolean is(Identifier id) {

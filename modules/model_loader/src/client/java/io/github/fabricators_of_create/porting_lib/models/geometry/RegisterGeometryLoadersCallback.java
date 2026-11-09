@@ -2,7 +2,7 @@ package io.github.fabricators_of_create.porting_lib.models.geometry;
 
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.util.Map;
 
@@ -15,5 +15,5 @@ public interface RegisterGeometryLoadersCallback {
 			e.registerGeometryLoaders(loaders);
 	});
 
-	void registerGeometryLoaders(Map<ResourceLocation, IGeometryLoader<?>> loaders);
+	void registerGeometryLoaders(Map<Identifier, IGeometryLoader<?>> loaders);
 }

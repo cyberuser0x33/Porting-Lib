@@ -17,7 +17,7 @@ import it.unimi.dsi.fastutil.ints.IntSet;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class ItemLayerModelBuilder<T extends ModelBuilder<T>> extends CustomLoaderBuilder<T> {
 	public static <T extends ModelBuilder<T>> ItemLayerModelBuilder<T> begin(T parent, ExistingFileHelper existingFileHelper) {
@@ -25,7 +25,7 @@ public class ItemLayerModelBuilder<T extends ModelBuilder<T>> extends CustomLoad
 	}
 
 	private final Int2ObjectMap<ExtraFaceData> faceData = new Int2ObjectOpenHashMap<>();
-	private final Map<ResourceLocation, IntSet> renderTypes = new LinkedHashMap<>();
+	private final Map<Identifier, IntSet> renderTypes = new LinkedHashMap<>();
 	private final IntSet layersWithRenderTypes = new IntOpenHashSet();
 
 	protected ItemLayerModelBuilder(T parent, ExistingFileHelper existingFileHelper) {
@@ -94,11 +94,11 @@ public class ItemLayerModelBuilder<T extends ModelBuilder<T>> extends CustomLoad
 	 */
 	public ItemLayerModelBuilder<T> renderType(String renderType, int... layers) {
 		Preconditions.checkNotNull(renderType, "Render type must not be null");
-		ResourceLocation asLoc;
+		Identifier asLoc;
 		if (renderType.contains(":"))
-			asLoc = ResourceLocation.parse(renderType);
+			asLoc = Identifier.parse(renderType);
 		else
-			asLoc = ResourceLocation.fromNamespaceAndPath(parent.getLocation().getNamespace(), renderType);
+			asLoc = Identifier.fromNamespaceAndPath(parent.getLocation().getNamespace(), renderType);
 		return renderType(asLoc, layers);
 	}
 
@@ -115,7 +115,7 @@ public class ItemLayerModelBuilder<T extends ModelBuilder<T>> extends CustomLoad
 	 * @throws IllegalArgumentException if any entry in {@code layers} is smaller than 0
 	 * @throws IllegalArgumentException if any entry in {@code layers} already has a render type
 	 */
-	public ItemLayerModelBuilder<T> renderType(ResourceLocation renderType, int... layers) {
+	public ItemLayerModelBuilder<T> renderType(Identifier renderType, int... layers) {
 		Preconditions.checkNotNull(renderType, "Render type must not be null");
 		Preconditions.checkNotNull(layers, "Layers must not be null");
 		Preconditions.checkArgument(layers.length > 0, "At least one layer must be specified");

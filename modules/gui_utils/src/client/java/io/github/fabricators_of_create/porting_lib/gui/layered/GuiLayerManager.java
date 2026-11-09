@@ -8,7 +8,7 @@ import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.LayeredDraw;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import org.jetbrains.annotations.ApiStatus;
 import org.jspecify.annotations.Nullable;
@@ -31,18 +31,18 @@ public class GuiLayerManager {
 	public static final float Z_SEPARATION = LayeredDraw.Z_SEPARATION;
 	private final List<NamedLayer> layers = new ArrayList<>();
 
-	public record NamedLayer(ResourceLocation name, LayeredDraw.Layer layer, boolean isVanilla) {
-		public NamedLayer(ResourceLocation name, LayeredDraw.Layer layer) {
+	public record NamedLayer(Identifier name, LayeredDraw.Layer layer, boolean isVanilla) {
+		public NamedLayer(Identifier name, LayeredDraw.Layer layer) {
 			this(name, layer, false);
 		}
 	}
 
-	public GuiLayerManager add(ResourceLocation name, LayeredDraw.Layer layer) {
+	public GuiLayerManager add(Identifier name, LayeredDraw.Layer layer) {
 		this.layers.add(new NamedLayer(name, layer));
 		return this;
 	}
 
-	public GuiLayerManager add(ResourceLocation name, LayeredDraw.Layer layer, boolean isVanilla) {
+	public GuiLayerManager add(Identifier name, LayeredDraw.Layer layer, boolean isVanilla) {
 		this.layers.add(new NamedLayer(name, layer, isVanilla));
 		return this;
 	}
@@ -59,12 +59,12 @@ public class GuiLayerManager {
 		return this;
 	}
 
-	public GuiLayerManager addVanilla(ResourceLocation name) {
+	public GuiLayerManager addVanilla(Identifier name) {
 		add(name, (guiGraphics, deltaTracker) -> {}, true);
 		return this;
 	}
 
-	public GuiLayerManager addVanilla(ResourceLocation name, LayeredDraw.Layer layer) {
+	public GuiLayerManager addVanilla(Identifier name, LayeredDraw.Layer layer) {
 		add(name, layer, true);
 		return this;
 	}
@@ -94,7 +94,7 @@ public class GuiLayerManager {
 	 * Renders layers starting from one render layer until the next Vanilla layer is reached.
 	 * @param start The ID of the rendering layer to start from
 	 */
-	public void renderFrom(ResourceLocation start, GuiGraphics guiGraphics, DeltaTracker partialTick) {
+	public void renderFrom(Identifier start, GuiGraphics guiGraphics, DeltaTracker partialTick) {
 		NamedLayer startingLayer = getLayer(start);
 		if (startingLayer == null) {
 			throw new IllegalArgumentException("Layer " + start + " does not exist!");
@@ -129,7 +129,7 @@ public class GuiLayerManager {
 		guiGraphics.pose().popPose();
 	}
 
-	public boolean callPreRenderEvent(ResourceLocation id, GuiGraphics guiGraphics, DeltaTracker partialTick) {
+	public boolean callPreRenderEvent(Identifier id, GuiGraphics guiGraphics, DeltaTracker partialTick) {
 		NamedLayer layer = getLayer(id);
 
 		if (layer == null) {
@@ -139,7 +139,7 @@ public class GuiLayerManager {
 		return RenderGuiLayerCallback.PRE.invoker().preRenderGuiLayer(guiGraphics, partialTick, layer.name(), layer.layer());
 	}
 
-	public void callPostRenderEvent(ResourceLocation id, GuiGraphics guiGraphics, DeltaTracker partialTick) {
+	public void callPostRenderEvent(Identifier id, GuiGraphics guiGraphics, DeltaTracker partialTick) {
 		NamedLayer layer = getLayer(id);
 
 		if (layer == null) {
@@ -158,7 +158,7 @@ public class GuiLayerManager {
 		guiGraphics.pose().translate(0.0F, 0.0F, Z_SEPARATION);
 	}
 
-	public NamedLayer getLayer(ResourceLocation id) {
+	public NamedLayer getLayer(Identifier id) {
 		for (NamedLayer layer : layers) {
 			if (layer.name().equals(id)) {
 				return layer;
@@ -181,7 +181,7 @@ public class GuiLayerManager {
 	 * @param wrapper an unary operator which takes in the old layer and returns the new layer that wraps the old one
 	 * @throws IllegalArgumentException if a layer with the given {@code id} is not yet registered
 	 */
-	public void wrapLayer(ResourceLocation id, UnaryOperator<LayeredDraw.Layer> wrapper) {
+	public void wrapLayer(Identifier id, UnaryOperator<LayeredDraw.Layer> wrapper) {
 		Objects.requireNonNull(id);
 		Objects.requireNonNull(wrapper);
 
@@ -198,7 +198,7 @@ public class GuiLayerManager {
 		throw new IllegalArgumentException("Attempted to wrap layer with id '" + id + "', which does not exist!");
 	}
 
-	public void register(GuiLayerRegistry.Ordering ordering, @Nullable ResourceLocation other, ResourceLocation key, LayeredDraw.Layer layer) {
+	public void register(GuiLayerRegistry.Ordering ordering, @Nullable Identifier other, Identifier key, LayeredDraw.Layer layer) {
 		Objects.requireNonNull(key);
 		for (var namedLayer : layers) {
 			Preconditions.checkArgument(!namedLayer.name().equals(key), "Layer already registered: " + key);

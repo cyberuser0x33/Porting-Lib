@@ -5,7 +5,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.FormattedText;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
@@ -56,7 +56,7 @@ public interface GuiGraphicsExtension {
 	 * Draws a textured box of any size (smallest size is borderSize * 2 square)
 	 * based on a fixed size textured box with continuous borders and filler.
 	 *
-	 * @param texture       the ResourceLocation object that contains the desired image
+	 * @param texture       the Identifier object that contains the desired image
 	 * @param x             x-axis offset
 	 * @param y             y-axis offset
 	 * @param u             bound resource location image x offset
@@ -67,7 +67,7 @@ public interface GuiGraphicsExtension {
 	 * @param textureHeight the height of the box texture in the resource location image
 	 * @param borderSize    the size of the box's borders
 	 */
-	default void blitWithBorder(ResourceLocation texture, int x, int y, int u, int v, int width, int height, int textureWidth, int textureHeight, int borderSize) {
+	default void blitWithBorder(Identifier texture, int x, int y, int u, int v, int width, int height, int textureWidth, int textureHeight, int borderSize) {
 		this.blitWithBorder(texture, x, y, u, v, width, height, textureWidth, textureHeight, borderSize, borderSize, borderSize, borderSize);
 	}
 
@@ -75,7 +75,7 @@ public interface GuiGraphicsExtension {
 	 * Draws a textured box of any size (smallest size is borderSize * 2 square)
 	 * based on a fixed size textured box with continuous borders and filler.
 	 *
-	 * @param texture       the ResourceLocation object that contains the desired image
+	 * @param texture       the Identifier object that contains the desired image
 	 * @param x             x-axis offset
 	 * @param y             y-axis offset
 	 * @param u             bound resource location image x offset
@@ -89,7 +89,7 @@ public interface GuiGraphicsExtension {
 	 * @param leftBorder    the size of the box's left border
 	 * @param rightBorder   the size of the box's right border
 	 */
-	default void blitWithBorder(ResourceLocation texture, int x, int y, int u, int v, int width, int height, int textureWidth, int textureHeight, int topBorder, int bottomBorder, int leftBorder, int rightBorder) {
+	default void blitWithBorder(Identifier texture, int x, int y, int u, int v, int width, int height, int textureWidth, int textureHeight, int topBorder, int bottomBorder, int leftBorder, int rightBorder) {
 		int fillerWidth = textureWidth - leftBorder - rightBorder;
 		int fillerHeight = textureHeight - topBorder - bottomBorder;
 		int canvasWidth = width - leftBorder - rightBorder;
@@ -129,11 +129,11 @@ public interface GuiGraphicsExtension {
 		}
 	}
 
-	default void blitInscribed(ResourceLocation texture, int x, int y, int boundsWidth, int boundsHeight, int rectWidth, int rectHeight) {
+	default void blitInscribed(Identifier texture, int x, int y, int boundsWidth, int boundsHeight, int rectWidth, int rectHeight) {
 		this.blitInscribed(texture, x, y, boundsWidth, boundsHeight, rectWidth, rectHeight, true, true);
 	}
 
-	default void blitInscribed(ResourceLocation texture, int x, int y, int boundsWidth, int boundsHeight, int rectWidth, int rectHeight, boolean centerX, boolean centerY) {
+	default void blitInscribed(Identifier texture, int x, int y, int boundsWidth, int boundsHeight, int rectWidth, int rectHeight, boolean centerX, boolean centerY) {
 		if (rectWidth * boundsHeight > rectHeight * boundsWidth) {
 			int h = boundsHeight;
 			boundsHeight = (int) (boundsWidth * ((double) rectHeight / rectWidth));
@@ -149,27 +149,27 @@ public interface GuiGraphicsExtension {
 
 	// TODO: 1.20.2: do we need to fix these or can we just remove them?
 	/**
-	 * Version of {@link GuiGraphics#blitNineSliced(ResourceLocation, int, int, int, int, int, int, int, int, int)} that supports specifying the texture's size.
+	 * Version of {@link GuiGraphics#blitNineSliced(Identifier, int, int, int, int, int, int, int, int, int)} that supports specifying the texture's size.
 	 */
-    /*default void blitNineSlicedSized(ResourceLocation texture, int x, int y, int width, int height, int sliceSize, int uWidth, int vHeight, int uOffset, int vOffset,
+    /*default void blitNineSlicedSized(Identifier texture, int x, int y, int width, int height, int sliceSize, int uWidth, int vHeight, int uOffset, int vOffset,
           int textureWidth, int textureHeight)
     {
         blitNineSlicedSized(texture, x, y, width, height, sliceSize, sliceSize, uWidth, vHeight, uOffset, vOffset, textureWidth, textureHeight);
     }*/
 
 	/**
-	 * Version of {@link GuiGraphics#blitNineSliced(ResourceLocation, int, int, int, int, int, int, int, int, int, int)} that supports specifying the texture's size.
+	 * Version of {@link GuiGraphics#blitNineSliced(Identifier, int, int, int, int, int, int, int, int, int, int)} that supports specifying the texture's size.
 	 */
-    /*default void blitNineSlicedSized(ResourceLocation texture, int x, int y, int width, int height, int sliceWidth, int sliceHeight, int uWidth, int vHeight,
+    /*default void blitNineSlicedSized(Identifier texture, int x, int y, int width, int height, int sliceWidth, int sliceHeight, int uWidth, int vHeight,
           int uOffset, int vOffset, int textureWidth, int textureHeight)
     {
         blitNineSlicedSized(texture, x, y, width, height, sliceWidth, sliceHeight, sliceWidth, sliceHeight, uWidth, vHeight, uOffset, vOffset, textureWidth, textureHeight);
     }*/
 
 	/**
-	 * Version of {@link GuiGraphics#blitNineSliced(ResourceLocation, int, int, int, int, int, int, int, int, int, int, int, int)} that supports specifying the texture's size.
+	 * Version of {@link GuiGraphics#blitNineSliced(Identifier, int, int, int, int, int, int, int, int, int, int, int, int)} that supports specifying the texture's size.
 	 */
-    /*default void blitNineSlicedSized(ResourceLocation texture, int x, int y, int width, int height, int cornerWidth, int cornerHeight, int edgeWidth, int edgeHeight,
+    /*default void blitNineSlicedSized(Identifier texture, int x, int y, int width, int height, int cornerWidth, int cornerHeight, int edgeWidth, int edgeHeight,
           int uWidth, int vHeight, int uOffset, int vOffset, int textureWidth, int textureHeight)
     {
         cornerWidth = Math.min(cornerWidth, width / 2);

@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import io.github.fabricators_of_create.porting_lib.tags.injects.DyeColorInjection;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
@@ -29,8 +29,8 @@ public class DyeColorMixin implements DyeColorInjection {
 
 	@Inject(method = "<init>", at = @At("TAIL"))
 	public void addTag(String enumName, int ordinal, int id, String name, int diffuseColor, MapColor mapColor, int fireworkColor, int textColor, CallbackInfo ci) {
-		this.dyesTag = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", "dyes/" + name));
-		this.dyedTag = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", "dyed/" + name));
+		this.dyesTag = TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("c", "dyes/" + name));
+		this.dyedTag = TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("c", "dyed/" + name));
 	}
 
 	@Override

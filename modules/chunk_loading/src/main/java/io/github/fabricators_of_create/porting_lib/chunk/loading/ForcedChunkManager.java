@@ -18,7 +18,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.nbt.Tag;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.TicketType;
 import net.minecraft.world.level.ChunkPos;
@@ -36,7 +36,7 @@ public class ForcedChunkManager {
 	static final TicketType<TicketOwner<UUID>> ENTITY = TicketType.create("neoforge:entity", Comparator.comparing(info -> info));
 	static final TicketType<TicketOwner<UUID>> ENTITY_TICKING = TicketType.create("neoforge:entity_ticking", Comparator.comparing(info -> info));
 
-	private static final Map<ResourceLocation, TicketController> controllers = new HashMap<>();
+	private static final Map<Identifier, TicketController> controllers = new HashMap<>();
 
 	public static void registerController(TicketController controller) {
 		if (controllers.containsKey(controller.id())) {
@@ -61,7 +61,7 @@ public class ForcedChunkManager {
 	 *
 	 * @implNote Based on {@link ServerLevel#setChunkForced(int, int, boolean)}
 	 */
-	static <T extends Comparable<? super T>> boolean forceChunk(ServerLevel level, ResourceLocation id, T owner, int chunkX, int chunkZ, boolean add, boolean ticking,
+	static <T extends Comparable<? super T>> boolean forceChunk(ServerLevel level, Identifier id, T owner, int chunkX, int chunkZ, boolean add, boolean ticking,
 																TicketType<TicketOwner<T>> type, Function<ForcedChunksSavedData, TicketTracker<T>> ticketGetter) {
 		if (!controllers.containsKey(id)) {
 			throw new IllegalArgumentException("Controller with ID " + id + " is not registered!");
@@ -116,8 +116,8 @@ public class ForcedChunkManager {
 
 		if (!controllers.isEmpty()) {
 			//If we have any callbacks, gather all owned tickets by controller for both blocks and entities
-			final Map<ResourceLocation, Map<BlockPos, TicketSet>> blockTickets = gatherTicketsById(saveData.getBlockForcedChunks());
-			final Map<ResourceLocation, Map<UUID, TicketSet>> entityTickets = gatherTicketsById(saveData.getEntityForcedChunks());
+			final Map<Identifier, Map<BlockPos, TicketSet>> blockTickets = gatherTicketsById(saveData.getBlockForcedChunks());
+			final Map<Identifier, Map<UUID, TicketSet>> entityTickets = gatherTicketsById(saveData.getEntityForcedChunks());
 			//Fire the callbacks allowing them to remove any tickets they don't want anymore
 			controllers.forEach((value) -> {
 				boolean hasBlockTicket = blockTickets.containsKey(value.getKey());
@@ -139,8 +139,8 @@ public class ForcedChunkManager {
 	/**
 	 * Gathers tickets into an ID filtered map for use in providing all tickets a controller has registered to its {@link LoadingValidationCallback}.
 	 */
-	private static <T extends Comparable<? super T>> Map<ResourceLocation, Map<T, TicketSet>> gatherTicketsById(TicketTracker<T> tickets) {
-		Map<ResourceLocation, Map<T, TicketSet>> modSortedOwnedChunks = new HashMap<>();
+	private static <T extends Comparable<? super T>> Map<Identifier, Map<T, TicketSet>> gatherTicketsById(TicketTracker<T> tickets) {
+		Map<Identifier, Map<T, TicketSet>> modSortedOwnedChunks = new HashMap<>();
 		gatherTicketsById(tickets.chunks, TicketSet::nonTicking, modSortedOwnedChunks);
 		gatherTicketsById(tickets.tickingChunks, TicketSet::ticking, modSortedOwnedChunks);
 		return modSortedOwnedChunks;
@@ -150,7 +150,7 @@ public class ForcedChunkManager {
 	 * Gathers tickets into an ID filtered map for use in providing all tickets a controller has registered to its {@link LoadingValidationCallback}.
 	 */
 	private static <T extends Comparable<? super T>> void gatherTicketsById(Map<TicketOwner<T>, LongSet> tickets, Function<TicketSet, LongSet> typeGetter,
-																			Map<ResourceLocation, Map<T, TicketSet>> modSortedOwnedChunks) {
+																			Map<Identifier, Map<T, TicketSet>> modSortedOwnedChunks) {
 		tickets.forEach((owner, values) -> {
 			TicketSet pair = modSortedOwnedChunks.computeIfAbsent(owner.id, modId -> new HashMap<>()).computeIfAbsent(owner.owner, o -> new TicketSet(new LongOpenHashSet(), new LongOpenHashSet()));
 			typeGetter.apply(pair).addAll(values);
@@ -175,11 +175,11 @@ public class ForcedChunkManager {
 	@ApiStatus.Internal
 	public static void writeModForcedChunks(CompoundTag nbt, TicketTracker<BlockPos> blockForcedChunks, TicketTracker<UUID> entityForcedChunks) {
 		if (!blockForcedChunks.isEmpty() || !entityForcedChunks.isEmpty()) {
-			Map<ResourceLocation, Long2ObjectMap<CompoundTag>> forcedEntries = new HashMap<>();
+			Map<Identifier, Long2ObjectMap<CompoundTag>> forcedEntries = new HashMap<>();
 			writeForcedChunkOwners(forcedEntries, blockForcedChunks, "Blocks", Tag.TAG_COMPOUND, (pos, forcedBlocks) -> forcedBlocks.add(writeBlockPos(pos)));
 			writeForcedChunkOwners(forcedEntries, entityForcedChunks, "Entities", Tag.TAG_INT_ARRAY, (uuid, forcedEntities) -> forcedEntities.add(NbtUtils.createUUID(uuid)));
 			ListTag forcedChunks = new ListTag();
-			for (Map.Entry<ResourceLocation, Long2ObjectMap<CompoundTag>> entry : forcedEntries.entrySet()) {
+			for (Map.Entry<Identifier, Long2ObjectMap<CompoundTag>> entry : forcedEntries.entrySet()) {
 				CompoundTag forcedEntry = new CompoundTag();
 				forcedEntry.putString("Controller", entry.getKey().toString());
 				ListTag modForced = new ListTag();
@@ -191,13 +191,13 @@ public class ForcedChunkManager {
 		}
 	}
 
-	private static <T extends Comparable<? super T>> void writeForcedChunkOwners(Map<ResourceLocation, Long2ObjectMap<CompoundTag>> forcedEntries, TicketTracker<T> tracker,
+	private static <T extends Comparable<? super T>> void writeForcedChunkOwners(Map<Identifier, Long2ObjectMap<CompoundTag>> forcedEntries, TicketTracker<T> tracker,
 																				 String listKey, int listType, BiConsumer<T, ListTag> ownerWriter) {
 		writeForcedChunkOwners(forcedEntries, tracker.chunks, listKey, listType, ownerWriter);
 		writeForcedChunkOwners(forcedEntries, tracker.tickingChunks, "Ticking" + listKey, listType, ownerWriter);
 	}
 
-	private static <T extends Comparable<? super T>> void writeForcedChunkOwners(Map<ResourceLocation, Long2ObjectMap<CompoundTag>> forcedEntries,
+	private static <T extends Comparable<? super T>> void writeForcedChunkOwners(Map<Identifier, Long2ObjectMap<CompoundTag>> forcedEntries,
 																				 Map<TicketOwner<T>, LongSet> forcedChunks, String listKey, int listType, BiConsumer<T, ListTag> ownerWriter) {
 		for (Map.Entry<TicketOwner<T>, LongSet> entry : forcedChunks.entrySet()) {
 			Long2ObjectMap<CompoundTag> modForced = forcedEntries.computeIfAbsent(entry.getKey().id, modId -> new Long2ObjectOpenHashMap<>());
@@ -225,11 +225,11 @@ public class ForcedChunkManager {
 		ListTag forcedChunks = nbt.getList("ModForced", Tag.TAG_COMPOUND);
 		for (int i = 0; i < forcedChunks.size(); i++) {
 			CompoundTag forcedEntry = forcedChunks.getCompound(i);
-			ResourceLocation controllerId;
+			Identifier controllerId;
 			if (forcedEntry.contains("Controller", Tag.TAG_STRING)) {
-				controllerId = ResourceLocation.parse(forcedEntry.getString("Controller"));
+				controllerId = Identifier.parse(forcedEntry.getString("Controller"));
 			} else {
-				controllerId = ResourceLocation.fromNamespaceAndPath(forcedEntry.getString("Mod"), "default");
+				controllerId = Identifier.fromNamespaceAndPath(forcedEntry.getString("Mod"), "default");
 			}
 			if (controllers.containsKey(controllerId)) {
 				ListTag modForced = forcedEntry.getList("ModForced", Tag.TAG_COMPOUND);
@@ -250,7 +250,7 @@ public class ForcedChunkManager {
 	/**
 	 * Reads the forge block forced chunks.
 	 */
-	private static void readBlockForcedChunks(ResourceLocation controllerId, long chunkPos, CompoundTag modEntry, String key, Map<TicketOwner<BlockPos>, LongSet> blockForcedChunks) {
+	private static void readBlockForcedChunks(Identifier controllerId, long chunkPos, CompoundTag modEntry, String key, Map<TicketOwner<BlockPos>, LongSet> blockForcedChunks) {
 		ListTag forcedBlocks = modEntry.getList(key, Tag.TAG_COMPOUND);
 		for (int k = 0; k < forcedBlocks.size(); k++) {
 			blockForcedChunks.computeIfAbsent(new TicketOwner<>(controllerId, readBlockPos(forcedBlocks.getCompound(k))), owner -> new LongOpenHashSet()).add(chunkPos);
@@ -272,7 +272,7 @@ public class ForcedChunkManager {
 	/**
 	 * Reads the forge entity forced chunks.
 	 */
-	private static void readEntityForcedChunks(ResourceLocation controllerId, long chunkPos, CompoundTag modEntry, String key, Map<TicketOwner<UUID>, LongSet> entityForcedChunks) {
+	private static void readEntityForcedChunks(Identifier controllerId, long chunkPos, CompoundTag modEntry, String key, Map<TicketOwner<UUID>, LongSet> entityForcedChunks) {
 		ListTag forcedEntities = modEntry.getList(key, Tag.TAG_INT_ARRAY);
 		for (Tag uuid : forcedEntities) {
 			entityForcedChunks.computeIfAbsent(new TicketOwner<>(controllerId, NbtUtils.loadUUID(uuid)), owner -> new LongOpenHashSet()).add(chunkPos);
@@ -283,10 +283,10 @@ public class ForcedChunkManager {
 	 * Helper class to keep track of a ticket owner by controller ID and owner object
 	 */
 	static class TicketOwner<T extends Comparable<? super T>> implements Comparable<TicketOwner<T>> {
-		private final ResourceLocation id;
+		private final Identifier id;
 		private final T owner;
 
-		TicketOwner(ResourceLocation id, T owner) {
+		TicketOwner(Identifier id, T owner) {
 			this.id = id;
 			this.owner = owner;
 		}

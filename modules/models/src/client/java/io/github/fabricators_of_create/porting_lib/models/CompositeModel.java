@@ -35,7 +35,7 @@ import net.minecraft.client.resources.model.ModelState;
 import net.minecraft.client.resources.model.UnbakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockAndTintGetter;
@@ -88,7 +88,7 @@ public class CompositeModel implements IUnbakedGeometry<CompositeModel> {
 	}
 
 	@Override
-	public void resolveParents(Function<ResourceLocation, UnbakedModel> modelGetter, IGeometryBakingContext context) {
+	public void resolveParents(Function<Identifier, UnbakedModel> modelGetter, IGeometryBakingContext context) {
 		children.values().forEach(child -> child.resolveParents(modelGetter));
 	}
 

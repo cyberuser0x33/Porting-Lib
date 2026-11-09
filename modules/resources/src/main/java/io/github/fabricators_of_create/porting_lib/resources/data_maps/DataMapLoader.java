@@ -18,7 +18,7 @@ import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.FileToIdConverter;
 import net.minecraft.resources.RegistryOps;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
@@ -38,7 +38,7 @@ import java.util.concurrent.Executor;
 import java.util.function.Consumer;
 
 public class DataMapLoader implements PreparableReloadListener {
-	public static final ResourceLocation ID = PortingLib.id("data_maps");
+	public static final Identifier ID = PortingLib.id("data_maps");
 
 	private static final Logger LOGGER = LogUtils.getLogger();
 	public static final String PATH = "data_maps";
@@ -148,9 +148,9 @@ public class DataMapLoader implements PreparableReloadListener {
 			final var registryKey = registryEntry.key();
 			profiler.push("registry_data_maps/" + registryKey.location() + "/locating");
 			final var fileToId = FileToIdConverter.json(PATH + "/" + getFolderLocation(registryKey.location()));
-			for (Map.Entry<ResourceLocation, List<Resource>> entry : fileToId.listMatchingResourceStacks(manager).entrySet()) {
-				ResourceLocation key = entry.getKey();
-				final ResourceLocation attachmentId = fileToId.fileToId(key);
+			for (Map.Entry<Identifier, List<Resource>> entry : fileToId.listMatchingResourceStacks(manager).entrySet()) {
+				Identifier key = entry.getKey();
+				final Identifier attachmentId = fileToId.fileToId(key);
 				final var attachment = PortingLibDataMaps.getDataMap((ResourceKey) registryKey, attachmentId);
 				if (attachment == null) {
 					LOGGER.warn("Found data map file for non-existent data map type '{}' on registry '{}'.", attachmentId, registryKey.location());
@@ -166,8 +166,8 @@ public class DataMapLoader implements PreparableReloadListener {
 		return values;
 	}
 
-	public static String getFolderLocation(ResourceLocation registryId) {
-		return (registryId.getNamespace().equals(ResourceLocation.DEFAULT_NAMESPACE) ? "" : registryId.getNamespace() + "/") + registryId.getPath();
+	public static String getFolderLocation(Identifier registryId) {
+		return (registryId.getNamespace().equals(Identifier.DEFAULT_NAMESPACE) ? "" : registryId.getNamespace() + "/") + registryId.getPath();
 	}
 
 	private static <A, T> List<DataMapFile<A, T>> readData(RegistryOps<JsonElement> ops, DataMapType<T, A> attachmentType, ResourceKey<Registry<T>> registryKey, List<Resource> resources) {

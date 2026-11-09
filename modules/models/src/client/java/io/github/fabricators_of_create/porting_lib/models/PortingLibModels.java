@@ -9,12 +9,12 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.minecraft.client.renderer.block.model.BlockModel;
 import net.minecraft.client.resources.model.ModelResourceLocation;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class PortingLibModels implements ClientModInitializer {
 	public static final String STANDALONE_VARIANT = "standalone";
 
-	public static ModelResourceLocation standalone(ResourceLocation id) {
+	public static ModelResourceLocation standalone(Identifier id) {
 		return new ModelResourceLocation(id, STANDALONE_VARIANT);
 	}
 

@@ -27,7 +27,7 @@ import java.util.function.Function;
  * The main ResourceManager is recreated on each reload, just after {@link ReloadableServerResources}'s creation.
  *
  * The event is fired on each reload and lets modders add their own ReloadListeners, for server-side resources.
- * The only reason to use this over Fabric API's {@link ResourceManagerHelper#registerReloadListener(IdentifiableResourceReloadListener)} or {@link ResourceManagerHelper#registerReloadListener(ResourceLocation, Function)}
+ * The only reason to use this over Fabric API's {@link ResourceManagerHelper#registerReloadListener(IdentifiableResourceReloadListener)} or {@link ResourceManagerHelper#registerReloadListener(Identifier, Function)}
  * is if you require {@link RegistryAccess} specifically.
  */
 public class AddReloadListenersEvent extends BaseEvent {

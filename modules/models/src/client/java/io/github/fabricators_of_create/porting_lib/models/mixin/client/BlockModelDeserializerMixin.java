@@ -20,7 +20,7 @@ import net.fabricmc.fabric.api.renderer.v1.RendererAccess;
 import net.fabricmc.fabric.api.renderer.v1.material.BlendMode;
 import net.fabricmc.fabric.api.renderer.v1.material.RenderMaterial;
 import net.minecraft.client.renderer.block.model.BlockModel;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.GsonHelper;
 
 @Mixin(BlockModel.Deserializer.class)
@@ -37,7 +37,7 @@ public class BlockModelDeserializerMixin {
 			Renderer renderer = RendererAccess.INSTANCE.getRenderer();
 			if (renderer != null) {
 				String typeName = GsonHelper.getAsString(modelJson, "render_type");
-				BlendMode blendMode = BlendMode.fromRenderLayer(RenderTypeUtil.get(ResourceLocation.parse(typeName)));
+				BlendMode blendMode = BlendMode.fromRenderLayer(RenderTypeUtil.get(Identifier.parse(typeName)));
 				((BlockModelInjection) model).port_lib$setBlendMode(blendMode);
 			}
 		}

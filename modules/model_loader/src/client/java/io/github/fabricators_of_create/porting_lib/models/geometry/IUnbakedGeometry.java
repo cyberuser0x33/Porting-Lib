@@ -10,7 +10,7 @@ import net.minecraft.client.resources.model.Material;
 import net.minecraft.client.resources.model.ModelBaker;
 import net.minecraft.client.resources.model.ModelState;
 import net.minecraft.client.resources.model.UnbakedModel;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 /**
  * General interface for any model that can be baked, superset of vanilla {@link UnbakedModel}.
@@ -28,7 +28,7 @@ public interface IUnbakedGeometry<T extends IUnbakedGeometry<T>> {
 	 * {@link IUnbakedGeometry#bake(IGeometryBakingContext, ModelBaker, Function, ModelState, ItemOverrides)}
 	 * via {@link BlockModel#resolveParents(Function)}
 	 */
-	default void resolveParents(Function<ResourceLocation, UnbakedModel> modelGetter, IGeometryBakingContext context) {}
+	default void resolveParents(Function<Identifier, UnbakedModel> modelGetter, IGeometryBakingContext context) {}
 
 	/**
 	 * {@return a set of all the components whose visibility may be configured via {@link IGeometryBakingContext}}

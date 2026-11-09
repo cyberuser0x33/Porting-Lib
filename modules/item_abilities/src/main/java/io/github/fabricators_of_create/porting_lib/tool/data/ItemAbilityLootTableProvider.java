@@ -36,7 +36,7 @@ import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.data.loot.LootTableSubProvider;
 import net.minecraft.data.loot.packs.VanillaLootTableProvider;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.RandomSequence;
@@ -111,7 +111,7 @@ public final class ItemAbilityLootTableProvider extends LootTableProvider {
 	private LootTable.Builder findAndReplaceInLootTableBuilder(LootTable.Builder builder) {
 		LootTable lootTable = builder.build();
 
-		Optional<ResourceLocation> randomSequence = getPrivateValue(LootTable.class, lootTable, "randomSequence");
+		Optional<Identifier> randomSequence = getPrivateValue(LootTable.class, lootTable, "randomSequence");
 		List<LootPool> lootPools = getPrivateValue(LootTable.class, lootTable, "pools");
 		List<LootItemFunction> lootItemFunctions = getPrivateValue(LootTable.class, lootTable, "functions");
 
@@ -203,7 +203,7 @@ public final class ItemAbilityLootTableProvider extends LootTableProvider {
 			found |= findAndReplaceInParentedLootEntry(compositeEntryBase, consumer);
 		} else if (entry instanceof LootPoolSingletonContainer singleton) {
 			if (singleton instanceof DynamicLoot dynamicLoot) {
-				ResourceLocation name = getPrivateValue(DynamicLoot.class, dynamicLoot, "name");
+				Identifier name = getPrivateValue(DynamicLoot.class, dynamicLoot, "name");
 				builder = DynamicLoot.dynamicEntry(name);
 			} else if (singleton instanceof EmptyLootItem) {
 				builder = EmptyLootItem.emptyItem();
@@ -296,10 +296,10 @@ public final class ItemAbilityLootTableProvider extends LootTableProvider {
 
 	private CompletableFuture<?> run(CachedOutput output, HolderLookup.Provider provider) {
 		WritableRegistry<LootTable> writableregistry = new MappedRegistry<>(Registries.LOOT_TABLE, Lifecycle.experimental());
-		Map<RandomSupport.Seed128bit, ResourceLocation> map = new Object2ObjectOpenHashMap<>();
+		Map<RandomSupport.Seed128bit, Identifier> map = new Object2ObjectOpenHashMap<>();
 		getTables().forEach(subEntry -> subEntry.provider().apply(provider).generate((key, p_335200_) -> {
-			ResourceLocation resourcelocation = sequenceIdForLootTable(key);
-			ResourceLocation resourcelocation1 = map.put(RandomSequence.seedForKey(resourcelocation), resourcelocation);
+			Identifier resourcelocation = sequenceIdForLootTable(key);
+			Identifier resourcelocation1 = map.put(RandomSequence.seedForKey(resourcelocation), resourcelocation);
 			if (resourcelocation1 != null) {
 				Util.logAndPauseIfInIde("Loot table random sequence seed collision on " + resourcelocation1 + " and " + key.location());
 			}

@@ -4,7 +4,7 @@ import io.github.fabricators_of_create.porting_lib.resources.data_maps.DataMapTy
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import org.jetbrains.annotations.ApiStatus;
 import org.jspecify.annotations.Nullable;

@@ -7,10 +7,10 @@ import java.util.Map;
 
 import io.github.fabricators_of_create.porting_lib.data.ExistingFileHelper;
 import io.github.fabricators_of_create.porting_lib.models.geometry.IGeometryLoader;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public abstract class CustomLoaderBuilder<T extends ModelBuilder<T>> {
-	protected final ResourceLocation loaderId;
+	protected final Identifier loaderId;
 	protected final T parent;
 	protected final ExistingFileHelper existingFileHelper;
 	protected final Map<String, Boolean> visibility = new LinkedHashMap<>();
@@ -24,7 +24,7 @@ public abstract class CustomLoaderBuilder<T extends ModelBuilder<T>> {
 	 * @param allowInlineElements Whether the loader supports inline vanilla elements and as such can fall back to vanilla loading
 	 *                            with some degradation if the loader does not exist and is marked as optional in the model
 	 */
-	protected CustomLoaderBuilder(ResourceLocation loaderId, T parent, ExistingFileHelper existingFileHelper, boolean allowInlineElements) {
+	protected CustomLoaderBuilder(Identifier loaderId, T parent, ExistingFileHelper existingFileHelper, boolean allowInlineElements) {
 		this.loaderId = loaderId;
 		this.parent = parent;
 		this.existingFileHelper = existingFileHelper;

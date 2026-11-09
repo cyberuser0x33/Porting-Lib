@@ -32,7 +32,7 @@ import net.minecraft.client.resources.model.ModelBaker;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.ModelState;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.ApiStatus;
 import org.jspecify.annotations.Nullable;
 import org.joml.Vector3f;
@@ -61,7 +61,7 @@ public class UnbakedGeometryHelper {
 	private static final Pattern FILESYSTEM_PATH_TO_RESLOC = Pattern.compile("(?:.*[\\\\/]assets[\\\\/](?<namespace>[a-z_-]+)[\\\\/]textures[\\\\/])?(?<path>[a-z_\\\\/-]+)\\.png");
 
 	/**
-	 * Resolves a material that may have been defined with a filesystem path instead of a proper {@link ResourceLocation}.
+	 * Resolves a material that may have been defined with a filesystem path instead of a proper {@link Identifier}.
 	 * <p>
 	 * The target atlas will always be {@link TextureAtlas#LOCATION_BLOCKS}.
 	 */
@@ -71,7 +71,7 @@ public class UnbakedGeometryHelper {
 		if (tex.startsWith("#"))
 			return owner.getMaterial(tex);
 
-		// Attempt to convert a common (windows/linux/mac) filesystem path to a ResourceLocation.
+		// Attempt to convert a common (windows/linux/mac) filesystem path to a Identifier.
 		// This makes no promises, if it doesn't work, too bad, fix your mtl file.
 		Matcher match = FILESYSTEM_PATH_TO_RESLOC.matcher(tex);
 		if (match.matches()) {
@@ -80,7 +80,7 @@ public class UnbakedGeometryHelper {
 			tex = namespace != null ? namespace + ":" + path : path;
 		}
 
-		return new Material(TextureAtlas.LOCATION_BLOCKS, ResourceLocation.parse(tex));
+		return new Material(TextureAtlas.LOCATION_BLOCKS, Identifier.parse(tex));
 	}
 
 	/**
@@ -207,7 +207,7 @@ public class UnbakedGeometryHelper {
 	public static void bakeElements(IModelBuilder<?> builder, List<BlockElement> elements, Function<Material, TextureAtlasSprite> spriteGetter, ModelState modelState) {
 		for (BlockElement element : elements) {
 			element.faces.forEach((side, face) -> {
-				var sprite = spriteGetter.apply(new Material(TextureAtlas.LOCATION_BLOCKS, ResourceLocation.parse(face.texture())));
+				var sprite = spriteGetter.apply(new Material(TextureAtlas.LOCATION_BLOCKS, Identifier.parse(face.texture())));
 				var quad = bakeElementFace(element, face, sprite, side, modelState);
 				if (face.cullForDirection() == null)
 					builder.addUnculledFace(quad);

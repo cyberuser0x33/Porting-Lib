@@ -12,7 +12,7 @@ import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.client.resources.model.ModelBaker;
 import net.minecraft.client.resources.model.ModelState;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.ApiStatus;
 import org.jspecify.annotations.Nullable;
 
@@ -29,7 +29,7 @@ public class BlockGeometryBakingContext implements IGeometryBakingContext {
 	@Nullable
 	private Transformation rootTransform;
 	@Nullable
-	private ResourceLocation renderTypeHint;
+	private Identifier renderTypeHint;
 	private boolean gui3d = true;
 
 	@ApiStatus.Internal
@@ -103,13 +103,13 @@ public class BlockGeometryBakingContext implements IGeometryBakingContext {
 
 	@Nullable
 	@Override
-	public ResourceLocation getRenderTypeHint() {
+	public Identifier getRenderTypeHint() {
 		if (renderTypeHint != null)
 			return renderTypeHint;
 		return owner.parent != null ? owner.parent.port_lib$getCustomData().getRenderTypeHint() : null;
 	}
 
-	public void setRenderTypeHint(ResourceLocation renderTypeHint) {
+	public void setRenderTypeHint(Identifier renderTypeHint) {
 		this.renderTypeHint = renderTypeHint;
 	}
 

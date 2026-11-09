@@ -19,7 +19,7 @@ import net.minecraft.client.resources.model.ModelManager;
 
 import net.minecraft.client.resources.model.ModelResourceLocation;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import org.jetbrains.annotations.ApiStatus;
 
@@ -167,7 +167,7 @@ public abstract class ModelEvent extends BaseEvent {
 	 * Fired when the {@link ModelBakery} is notified of the resource manager reloading.
 	 * Allows developers to register models to be loaded, along with their dependencies. Models registered through this
 	 * event must use the {@link PortingLibModels#STANDALONE_VARIANT} variant.
-	 * <p>Prefer {@link ModelLoadingPlugin.Context#addModels(ResourceLocation...)} where possible.</p>
+	 * <p>Prefer {@link ModelLoadingPlugin.Context#addModels(Identifier...)} where possible.</p>
 	 *
 	 * <p>This event is not {@linkplain CancellableEvent cancellable}, and does not have a result.</p>
 	 *

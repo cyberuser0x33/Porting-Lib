@@ -14,7 +14,7 @@ public abstract class ShapelessRecipeMixin {
 //	private boolean isSimple;
 //
 //	@Inject(method = "<init>", at = @At("TAIL"))
-//	public void port_lib$init(ResourceLocation resourceLocation, String string, ItemStack itemStack, NonNullList<Ingredient> nonNullList, CallbackInfo ci) {
+//	public void port_lib$init(Identifier resourceLocation, String string, ItemStack itemStack, NonNullList<Ingredient> nonNullList, CallbackInfo ci) {
 //		this.isSimple = nonNullList.stream().allMatch(IngredientExtensions::isSimple);
 //	}
 //

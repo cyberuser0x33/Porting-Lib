@@ -29,7 +29,7 @@ import net.minecraft.client.resources.model.AtlasSet;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.ModelManager;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.profiling.ProfilerFiller;
 
 @Mixin(ModelManager.class)
@@ -48,7 +48,7 @@ public abstract class ModelManagerMixin implements ModelManagerInjection {
 	@Definition(id = "profilerFiller", local = @Local(type = ProfilerFiller.class, argsOnly = true))
 	@Expression("profilerFiller.popPush('dispatch')")
 	@Inject(method = "loadModels", at = @At("MIXINEXTRAS:EXPRESSION"))
-	private void modifyBakingResult(ProfilerFiller profilerFiller, Map<ResourceLocation, AtlasSet.StitchResult> atlasPreparations, ModelBakery modelBakery, CallbackInfoReturnable<ModelManager.ReloadState> cir) {
+	private void modifyBakingResult(ProfilerFiller profilerFiller, Map<Identifier, AtlasSet.StitchResult> atlasPreparations, ModelBakery modelBakery, CallbackInfoReturnable<ModelManager.ReloadState> cir) {
 		profilerFiller.popPush("porting_lib_modify_baking_result");
 
 		Function<Material, TextureAtlasSprite> textureGetter = material -> {

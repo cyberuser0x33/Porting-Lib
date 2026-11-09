@@ -3,7 +3,7 @@ package io.github.fabricators_of_create.porting_lib.loot.mixin;
 import io.github.fabricators_of_create.porting_lib.loot.LootTableIdCondition;
 import io.github.fabricators_of_create.porting_lib.loot.PortingLibLoot;
 import io.github.fabricators_of_create.porting_lib.loot.extensions.LootContextExtensions;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.storage.loot.LootContext;
 
 import net.minecraft.world.level.storage.loot.parameters.LootContextParam;
@@ -21,16 +21,16 @@ public abstract class LootContextMixin implements LootContextExtensions {
 	public abstract <T> T getParamOrNull(LootContextParam<T> lootContextParam);
 
 	@Unique
-	private ResourceLocation queriedLootTableId;
+	private Identifier queriedLootTableId;
 
 	@Override
-	public void setQueriedLootTableId(ResourceLocation queriedLootTableId) {
+	public void setQueriedLootTableId(Identifier queriedLootTableId) {
 		if (this.queriedLootTableId == null && queriedLootTableId != null)
 			this.queriedLootTableId = queriedLootTableId;
 	}
 
 	@Override
-	public ResourceLocation getQueriedLootTableId() {
+	public Identifier getQueriedLootTableId() {
 		return this.queriedLootTableId == null ? LootTableIdCondition.UNKNOWN_LOOT_TABLE : this.queriedLootTableId;
 	}
 }

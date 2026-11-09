@@ -6,7 +6,7 @@ import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.data.recipes.RecipeOutput;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import net.minecraft.world.item.crafting.Recipe;
 
@@ -34,7 +34,7 @@ public class ConditionalRecipeOutput implements RecipeOutput {
 	}
 
 	@Override
-	public void accept(ResourceLocation location, Recipe<?> recipe, @Nullable AdvancementHolder advancement) {
+	public void accept(Identifier location, Recipe<?> recipe, @Nullable AdvancementHolder advancement) {
 		ICondition[] innerConditions;
 		if (conditions.length == 0) {
 			innerConditions = this.conditions;
@@ -47,7 +47,7 @@ public class ConditionalRecipeOutput implements RecipeOutput {
 	}
 
 	@Override
-	public void accept(ResourceLocation id, Recipe<?> recipe, @Nullable AdvancementHolder advancement, ICondition... conditions) {
+	public void accept(Identifier id, Recipe<?> recipe, @Nullable AdvancementHolder advancement, ICondition... conditions) {
 		ICondition[] innerConditions;
 		if (conditions.length == 0) {
 			innerConditions = this.conditions;

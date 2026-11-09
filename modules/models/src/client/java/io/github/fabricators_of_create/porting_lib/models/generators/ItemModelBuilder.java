@@ -10,7 +10,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import io.github.fabricators_of_create.porting_lib.data.ExistingFileHelper;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 /**
  * Builder for item models, adds the ability to build overrides via
@@ -20,7 +20,7 @@ public class ItemModelBuilder extends ModelBuilder<ItemModelBuilder> {
 
 	protected List<OverrideBuilder> overrides = new ArrayList<>();
 
-	public ItemModelBuilder(ResourceLocation outputLocation, ExistingFileHelper existingFileHelper) {
+	public ItemModelBuilder(Identifier outputLocation, ExistingFileHelper existingFileHelper) {
 		super(outputLocation, existingFileHelper);
 	}
 
@@ -56,7 +56,7 @@ public class ItemModelBuilder extends ModelBuilder<ItemModelBuilder> {
 	public class OverrideBuilder {
 
 		private ModelFile model;
-		private final Map<ResourceLocation, Float> predicates = new LinkedHashMap<>();
+		private final Map<Identifier, Float> predicates = new LinkedHashMap<>();
 
 		public OverrideBuilder model(ModelFile model) {
 			this.model = model;
@@ -64,7 +64,7 @@ public class ItemModelBuilder extends ModelBuilder<ItemModelBuilder> {
 			return this;
 		}
 
-		public OverrideBuilder predicate(ResourceLocation key, float value) {
+		public OverrideBuilder predicate(Identifier key, float value) {
 			this.predicates.put(key, value);
 			return this;
 		}

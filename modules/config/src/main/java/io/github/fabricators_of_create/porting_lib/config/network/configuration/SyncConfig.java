@@ -9,7 +9,7 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.common.ClientboundCustomPayloadPacket;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.network.protocol.configuration.ServerConfigurationPacketListener;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.network.ConfigurationTask;
 import org.jetbrains.annotations.ApiStatus;
 
@@ -20,7 +20,7 @@ import org.jetbrains.annotations.ApiStatus;
  */
 @ApiStatus.Internal
 public record SyncConfig(FabricServerConfigurationNetworkHandler listener) implements ConfigurationTask {
-	private static final ResourceLocation ID = PortingLib.id("sync_config");
+	private static final Identifier ID = PortingLib.id("sync_config");
 	public static ConfigurationTask.Type TYPE = new ConfigurationTask.Type(ID.toString());
 
 	public void run(Consumer<CustomPacketPayload> sender) {

@@ -10,7 +10,7 @@ import net.minecraft.data.DataProvider;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.crafting.Recipe;
 
 import org.jspecify.annotations.Nullable;
@@ -27,7 +27,7 @@ import java.util.concurrent.CompletableFuture;
 public abstract class RecipeProvider$RecipeOutputMixin implements RecipeOutput {
 	@Shadow
 	@Final
-	Set<ResourceLocation> val$allRecipes;
+	Set<Identifier> val$allRecipes;
 
 	@Shadow
 	@Final
@@ -45,7 +45,7 @@ public abstract class RecipeProvider$RecipeOutputMixin implements RecipeOutput {
 	@Final
 	RecipeProvider field_46148;
 
-	public void accept(ResourceLocation location, Recipe<?> recipe, @Nullable AdvancementHolder advancement, ICondition... conditions) {
+	public void accept(Identifier location, Recipe<?> recipe, @Nullable AdvancementHolder advancement, ICondition... conditions) {
 		if (!val$allRecipes.add(location)) {
 			throw new IllegalStateException("Duplicate recipe " + location);
 		} else {

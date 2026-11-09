@@ -26,7 +26,7 @@ import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.RandomSequence;
 import net.minecraft.world.level.levelgen.RandomSupport;
@@ -62,10 +62,10 @@ public class ModdedLootTableProvider implements DataProvider {
 
 	private CompletableFuture<?> run(CachedOutput output, HolderLookup.Provider provider) {
 		WritableRegistry<LootTable> writableregistry = new MappedRegistry<>(Registries.LOOT_TABLE, Lifecycle.experimental());
-		Map<RandomSupport.Seed128bit, ResourceLocation> map = new Object2ObjectOpenHashMap<>();
+		Map<RandomSupport.Seed128bit, Identifier> map = new Object2ObjectOpenHashMap<>();
 		getTables().forEach(entry -> entry.provider().apply(provider).generate((key, builder) -> {
-			ResourceLocation resourcelocation = sequenceIdForLootTable(key);
-			ResourceLocation resourcelocation1 = map.put(RandomSequence.seedForKey(resourcelocation), resourcelocation);
+			Identifier resourcelocation = sequenceIdForLootTable(key);
+			Identifier resourcelocation1 = map.put(RandomSequence.seedForKey(resourcelocation), resourcelocation);
 			if (resourcelocation1 != null) {
 				Util.logAndPauseIfInIde("Loot table random sequence seed collision on " + resourcelocation1 + " and " + key.location());
 			}
@@ -109,7 +109,7 @@ public class ModdedLootTableProvider implements DataProvider {
 		});
 	}
 
-	private static ResourceLocation sequenceIdForLootTable(ResourceKey<LootTable> tableKey) {
+	private static Identifier sequenceIdForLootTable(ResourceKey<LootTable> tableKey) {
 		return tableKey.location();
 	}
 

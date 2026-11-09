@@ -13,7 +13,7 @@ import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;
@@ -21,7 +21,7 @@ import net.minecraft.world.level.storage.loot.LootContext;
 public class PortingLibLoot implements ModInitializer {
 	public static final ResourceKey<Registry<MapCodec<? extends IGlobalLootModifier>>> GLOBAL_LOOT_MODIFIER_SERIALIZERS_KEY = PortingLib.key("global_loot_modifier_serializers");
 	public static final Registry<MapCodec<? extends IGlobalLootModifier>> GLOBAL_LOOT_MODIFIER_SERIALIZERS = new RegistryBuilder<>(GLOBAL_LOOT_MODIFIER_SERIALIZERS_KEY).create();
-	public static final ResourceLocation LAST = PortingLib.id("last");
+	public static final Identifier LAST = PortingLib.id("last");
 
 	@Override
 	public void onInitialize() {
@@ -51,7 +51,7 @@ public class PortingLibLoot implements ModInitializer {
 	 * @apiNote The given context will be modified by this method to also store the ID of the
 	 *          loot table being queried.
 	 */
-	public static ObjectArrayList<ItemStack> modifyLoot(ResourceLocation lootTableId, ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
+	public static ObjectArrayList<ItemStack> modifyLoot(Identifier lootTableId, ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
 		context.setQueriedLootTableId(lootTableId); // In case the ID was set via copy constructor, this will be ignored: intended
 		LootModifierManager man = LootModifierManager.INSTANCE;
 		for (IGlobalLootModifier mod : man.getAllLootMods()) {

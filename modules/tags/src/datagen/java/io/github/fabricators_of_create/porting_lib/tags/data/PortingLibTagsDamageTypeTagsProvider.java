@@ -7,7 +7,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.tags.DamageTypeTagsProvider;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagBuilder;
 import net.minecraft.tags.TagEntry;
 import net.minecraft.tags.TagKey;
@@ -25,7 +25,7 @@ public class PortingLibTagsDamageTypeTagsProvider extends DamageTypeTagsProvider
 		super(output, registriesFuture);
 	}
 
-	private final Map<ResourceLocation, TagBuilder> vanillaBuilders = Maps.newLinkedHashMap();
+	private final Map<Identifier, TagBuilder> vanillaBuilders = Maps.newLinkedHashMap();
 	private boolean inVanilla;
 
 	@Override

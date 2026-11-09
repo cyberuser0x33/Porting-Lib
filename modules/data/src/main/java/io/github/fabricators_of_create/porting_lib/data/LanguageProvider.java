@@ -10,7 +10,7 @@ import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;
@@ -130,8 +130,8 @@ public abstract class LanguageProvider implements DataProvider {
 		StringBuilder stringBuilder = new StringBuilder();
 		stringBuilder.append("tag.");
 
-		ResourceLocation registryIdentifier = tagKey.registry().location();
-		ResourceLocation tagIdentifier = tagKey.location();
+		Identifier registryIdentifier = tagKey.registry().location();
+		Identifier tagIdentifier = tagKey.location();
 
 		stringBuilder.append(registryIdentifier.toShortLanguageKey().replace("/", "."))
 				.append(".")

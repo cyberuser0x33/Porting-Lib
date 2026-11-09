@@ -8,7 +8,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 
 import org.jetbrains.annotations.ApiStatus;
@@ -20,7 +20,7 @@ public class PortingLibDataHack {
 	@ApiStatus.Internal
 	public static boolean inPatch = false;
 
-	public static String prefixNamespace(ResourceLocation registryKey) {
+	public static String prefixNamespace(Identifier registryKey) {
 		return registryKey.getNamespace().equals("minecraft") ? registryKey.getPath() : registryKey.getNamespace() + "/" + registryKey.getPath();
 	}
 

@@ -17,7 +17,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.resources.ResourceKey;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.PackType;
 
 import net.minecraft.tags.BlockTags;
@@ -65,7 +65,7 @@ public abstract class PortingLibTagsProvider<T> extends TagsProvider<T> {
 
 	// PL: Allow customizing the path for a given tag or returning null
 	@org.jetbrains.annotations.Nullable
-	protected Path getPath(ResourceLocation id) {
+	protected Path getPath(Identifier id) {
 		return this.pathProvider.json(id);
 	}
 
@@ -114,8 +114,8 @@ public abstract class PortingLibTagsProvider<T> extends TagsProvider<T> {
 				.thenCompose(
 						data -> {
 							HolderLookup.RegistryLookup<T> lookup = data.contents.lookupOrThrow(this.registryKey);
-							Predicate<ResourceLocation> hasRegistry = location -> lookup.get(ResourceKey.create(this.registryKey, location)).isPresent();
-							Predicate<ResourceLocation> hasTag = location -> this.builders.containsKey(location)
+							Predicate<Identifier> hasRegistry = location -> lookup.get(ResourceKey.create(this.registryKey, location)).isPresent();
+							Predicate<Identifier> hasTag = location -> this.builders.containsKey(location)
 									|| data.parent.contains(TagKey.create(this.registryKey, location));
 							return CompletableFuture.allOf(
 									this.builders
@@ -123,7 +123,7 @@ public abstract class PortingLibTagsProvider<T> extends TagsProvider<T> {
 											.stream()
 											.map(
 													tagEntry -> {
-														ResourceLocation tagId = tagEntry.getKey();
+														Identifier tagId = tagEntry.getKey();
 														TagBuilder builder = tagEntry.getValue();
 														List<TagEntry> entries = builder.build();
 														List<TagEntry> missingTags = entries.stream()
@@ -247,7 +247,7 @@ public abstract class PortingLibTagsProvider<T> extends TagsProvider<T> {
 		 * Add an element to the tag.
 		 *
 		 * @return the {@link PortingLibTagAppender} instance
-		 * @see #addTag(ResourceLocation)
+		 * @see #addTag(Identifier)
 		 */
 		@Override
 		public PortingLibTagAppender add(ResourceKey<T> registryKey) {
@@ -260,18 +260,18 @@ public abstract class PortingLibTagsProvider<T> extends TagsProvider<T> {
 		 *
 		 * @return the {@link PortingLibTagAppender} instance
 		 */
-		public PortingLibTagAppender addTag(ResourceLocation id) {
+		public PortingLibTagAppender addTag(Identifier id) {
 			builder.addTag(id);
 			return this;
 		}
 
 		/**
-		 * Add an optional {@link ResourceLocation} to the tag.
+		 * Add an optional {@link Identifier} to the tag.
 		 *
 		 * @return the {@link PortingLibTagAppender} instance
 		 */
 		@Override
-		public PortingLibTagAppender addOptional(ResourceLocation id) {
+		public PortingLibTagAppender addOptional(Identifier id) {
 			parent.addOptional(id);
 			return this;
 		}
@@ -312,7 +312,7 @@ public abstract class PortingLibTagsProvider<T> extends TagsProvider<T> {
 		 * @return the {@link PortingLibTagAppender} instance
 		 */
 		@Override
-		public PortingLibTagAppender addOptionalTag(ResourceLocation id) {
+		public PortingLibTagAppender addOptionalTag(Identifier id) {
 			parent.addOptionalTag(id);
 			return this;
 		}
@@ -330,7 +330,7 @@ public abstract class PortingLibTagsProvider<T> extends TagsProvider<T> {
 		 * Add another tag to this tag, ignoring any warning.
 		 *
 		 * <p><b>Note:</b> only use this method if you sure that the tag will be always available at runtime.
-		 * If not, use {@link #addOptionalTag(ResourceLocation)} instead.
+		 * If not, use {@link #addOptionalTag(Identifier)} instead.
 		 *
 		 * @return the {@link PortingLibTagAppender} instance
 		 */
@@ -344,8 +344,8 @@ public abstract class PortingLibTagsProvider<T> extends TagsProvider<T> {
 		 *
 		 * @return the {@link PortingLibTagAppender} instance
 		 */
-		public PortingLibTagAppender add(ResourceLocation... ids) {
-			for (ResourceLocation id : ids) {
+		public PortingLibTagAppender add(Identifier... ids) {
+			for (Identifier id : ids) {
 				add(id);
 			}
 

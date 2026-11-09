@@ -9,4 +9,4 @@ accessible field net/minecraft/data/loot/LootTableProvider pathProvider Lnet/min
 accessible field net/minecraft/data/loot/LootTableProvider requiredTables Ljava/util/Set;
 accessible field net/minecraft/data/loot/LootTableProvider subProviders Ljava/util/List;
 accessible field net/minecraft/data/loot/LootTableProvider registries Ljava/util/concurrent/CompletableFuture;
-accessible method net/minecraft/data/loot/LootTableProvider sequenceIdForLootTable (Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/resources/ResourceLocation;
+accessible method net/minecraft/data/loot/LootTableProvider sequenceIdForLootTable (Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/resources/Identifier;

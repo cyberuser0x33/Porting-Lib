@@ -9,7 +9,7 @@ import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalStructureTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.ItemTags;
@@ -279,11 +279,11 @@ public class Tags {
 		public static final TagKey<Block> VILLAGER_FARMLANDS = neoforgeTag("villager_farmlands");
 
 		private static TagKey<Block> tag(String name) {
-			return TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("c", name));
+			return TagKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath("c", name));
 		}
 
 		private static TagKey<Block> neoforgeTag(String name) {
-			return TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("neoforge", name));
+			return TagKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath("neoforge", name));
 		}
 	}
 
@@ -307,7 +307,7 @@ public class Tags {
 		public static final TagKey<EntityType<?>> TELEPORTING_NOT_SUPPORTED = ConventionalEntityTypeTags.TELEPORTING_NOT_SUPPORTED;
 
 		private static TagKey<EntityType<?>> tag(String name) {
-			return TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath("c", name));
+			return TagKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath("c", name));
 		}
 	}
 
@@ -897,11 +897,11 @@ public class Tags {
 		public static final TagKey<Item> ENCHANTABLES = ConventionalItemTags.ENCHANTABLES;
 
 		private static TagKey<Item> tag(String name) {
-			return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", name));
+			return TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("c", name));
 		}
 
 		private static TagKey<Item> neoforgeTag(String name) {
-			return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("neoforge", name));
+			return TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("neoforge", name));
 		}
 	}
 
@@ -980,7 +980,7 @@ public class Tags {
 		public static final TagKey<Fluid> HIDDEN_FROM_RECIPE_VIEWERS = ConventionalFluidTags.HIDDEN_FROM_RECIPE_VIEWERS;
 
 		private static TagKey<Fluid> tag(String name) {
-			return TagKey.create(Registries.FLUID, ResourceLocation.fromNamespaceAndPath("c", name));
+			return TagKey.create(Registries.FLUID, Identifier.fromNamespaceAndPath("c", name));
 		}
 	}
 
@@ -1014,7 +1014,7 @@ public class Tags {
 		public static final TagKey<Enchantment> ENTITY_DEFENSE_ENHANCEMENTS = ConventionalEnchantmentTags.ENTITY_DEFENSE_ENHANCEMENTS;
 
 		private static TagKey<Enchantment> tag(String name) {
-			return TagKey.create(Registries.ENCHANTMENT, ResourceLocation.fromNamespaceAndPath("c", name));
+			return TagKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath("c", name));
 		}
 	}
 
@@ -1274,7 +1274,7 @@ public class Tags {
 		public static final TagKey<Biome> IS_MODIFIED = tag("is_modified");
 
 		private static TagKey<Biome> tag(String name) {
-			return TagKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath("c", name));
+			return TagKey.create(Registries.BIOME, Identifier.fromNamespaceAndPath("c", name));
 		}
 	}
 
@@ -1292,7 +1292,7 @@ public class Tags {
 		public static final TagKey<Structure> HIDDEN_FROM_LOCATOR_SELECTION = ConventionalStructureTags.HIDDEN_FROM_LOCATOR_SELECTION;
 
 		private static TagKey<Structure> tag(String name) {
-			return TagKey.create(Registries.STRUCTURE, ResourceLocation.fromNamespaceAndPath("c", name));
+			return TagKey.create(Registries.STRUCTURE, Identifier.fromNamespaceAndPath("c", name));
 		}
 	}
 
@@ -1339,7 +1339,7 @@ public class Tags {
 		public static final TagKey<DamageType> NO_FLINCH = neoforgeTag("no_flinch");
 
 		private static TagKey<DamageType> neoforgeTag(String name) {
-			return TagKey.create(Registries.DAMAGE_TYPE, ResourceLocation.fromNamespaceAndPath("neoforge", name));
+			return TagKey.create(Registries.DAMAGE_TYPE, Identifier.fromNamespaceAndPath("neoforge", name));
 		}
 	}
 
@@ -1352,8 +1352,8 @@ public class Tags {
 		StringBuilder stringBuilder = new StringBuilder();
 		stringBuilder.append("tag.");
 
-		ResourceLocation registryIdentifier = tagKey.registry().location();
-		ResourceLocation tagIdentifier = tagKey.location();
+		Identifier registryIdentifier = tagKey.registry().location();
+		Identifier tagIdentifier = tagKey.location();
 
 		stringBuilder.append(registryIdentifier.toShortLanguageKey().replace("/", "."))
 				.append(".")

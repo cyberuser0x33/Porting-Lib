@@ -13,30 +13,30 @@ import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.texture.MissingTextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.resources.model.Material;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jspecify.annotations.Nullable;
 
 /**
  * A {@linkplain IGeometryBakingContext geometry baking context} that is not bound to block/item model loading.
  */
 public class StandaloneGeometryBakingContext implements IGeometryBakingContext {
-	public static final ResourceLocation LOCATION = PortingLib.id("standalone");
+	public static final Identifier LOCATION = PortingLib.id("standalone");
 
 	public static final StandaloneGeometryBakingContext INSTANCE = create(LOCATION);
 
-	public static StandaloneGeometryBakingContext create(ResourceLocation modelName) {
+	public static StandaloneGeometryBakingContext create(Identifier modelName) {
 		return builder().build(modelName);
 	}
 
-	public static StandaloneGeometryBakingContext create(Map<String, ResourceLocation> textures) {
+	public static StandaloneGeometryBakingContext create(Map<String, Identifier> textures) {
 		return create(LOCATION, textures);
 	}
 
-	public static StandaloneGeometryBakingContext create(ResourceLocation modelName, Map<String, ResourceLocation> textures) {
+	public static StandaloneGeometryBakingContext create(Identifier modelName, Map<String, Identifier> textures) {
 		return builder().withTextures(textures, MissingTextureAtlasSprite.getLocation()).build(modelName);
 	}
 
-	private final ResourceLocation modelName;
+	private final Identifier modelName;
 	private final Predicate<String> materialCheck;
 	private final Function<String, Material> materialLookup;
 	private final boolean isGui3d;
@@ -45,14 +45,14 @@ public class StandaloneGeometryBakingContext implements IGeometryBakingContext {
 	private final ItemTransforms transforms;
 	private final Transformation rootTransform;
 	@Nullable
-	private final ResourceLocation renderTypeHint;
+	private final Identifier renderTypeHint;
 	private final BiPredicate<String, Boolean> visibilityTest;
 
-	private StandaloneGeometryBakingContext(ResourceLocation modelName, Predicate<String> materialCheck,
+	private StandaloneGeometryBakingContext(Identifier modelName, Predicate<String> materialCheck,
 											Function<String, Material> materialLookup, boolean isGui3d,
 											boolean useBlockLight, boolean useAmbientOcclusion,
 											ItemTransforms transforms, Transformation rootTransform,
-											@Nullable ResourceLocation renderTypeHint,
+											@Nullable Identifier renderTypeHint,
 											BiPredicate<String, Boolean> visibilityTest) {
 		this.modelName = modelName;
 		this.materialCheck = materialCheck;
@@ -108,7 +108,7 @@ public class StandaloneGeometryBakingContext implements IGeometryBakingContext {
 
 	@Nullable
 	@Override
-	public ResourceLocation getRenderTypeHint() {
+	public Identifier getRenderTypeHint() {
 		return renderTypeHint;
 	}
 
@@ -135,7 +135,7 @@ public class StandaloneGeometryBakingContext implements IGeometryBakingContext {
 		private ItemTransforms transforms = ItemTransforms.NO_TRANSFORMS;
 		private Transformation rootTransform = Transformation.identity();
 		@Nullable
-		private ResourceLocation renderTypeHint;
+		private Identifier renderTypeHint;
 		private BiPredicate<String, Boolean> visibilityTest = (c, def) -> def;
 
 		private Builder() {}
@@ -152,11 +152,11 @@ public class StandaloneGeometryBakingContext implements IGeometryBakingContext {
 			this.visibilityTest = parent::isComponentVisible;
 		}
 
-		public Builder withTextures(Map<String, ResourceLocation> textures, ResourceLocation defaultTexture) {
+		public Builder withTextures(Map<String, Identifier> textures, Identifier defaultTexture) {
 			return withTextures(TextureAtlas.LOCATION_BLOCKS, textures, defaultTexture);
 		}
 
-		public Builder withTextures(ResourceLocation atlasLocation, Map<String, ResourceLocation> textures, ResourceLocation defaultTexture) {
+		public Builder withTextures(Identifier atlasLocation, Map<String, Identifier> textures, Identifier defaultTexture) {
 			this.materialCheck = textures::containsKey;
 			this.materialLookup = name -> new Material(atlasLocation, textures.getOrDefault(name, defaultTexture));
 			return this;
@@ -193,7 +193,7 @@ public class StandaloneGeometryBakingContext implements IGeometryBakingContext {
 			return this;
 		}
 
-		public Builder withRenderTypeHint(ResourceLocation renderTypeHint) {
+		public Builder withRenderTypeHint(Identifier renderTypeHint) {
 			this.renderTypeHint = renderTypeHint;
 			return this;
 		}
@@ -203,7 +203,7 @@ public class StandaloneGeometryBakingContext implements IGeometryBakingContext {
 			return this;
 		}
 
-		public StandaloneGeometryBakingContext build(ResourceLocation modelName) {
+		public StandaloneGeometryBakingContext build(Identifier modelName) {
 			return new StandaloneGeometryBakingContext(modelName, materialCheck, materialLookup, isGui3d, useBlockLight, useAmbientOcclusion, transforms, rootTransform, renderTypeHint, visibilityTest);
 		}
 	}

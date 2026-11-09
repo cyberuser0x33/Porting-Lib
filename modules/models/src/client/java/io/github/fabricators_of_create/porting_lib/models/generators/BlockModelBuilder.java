@@ -6,7 +6,7 @@ import com.google.gson.JsonObject;
 import com.mojang.math.Transformation;
 
 import io.github.fabricators_of_create.porting_lib.data.ExistingFileHelper;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.StringRepresentable;
 
 import org.jspecify.annotations.Nullable;
@@ -24,7 +24,7 @@ import org.joml.Vector3f;
 public class BlockModelBuilder extends ModelBuilder<BlockModelBuilder> {
 	private final RootTransformBuilder rootTransform = new RootTransformBuilder();
 
-	public BlockModelBuilder(ResourceLocation outputLocation, ExistingFileHelper existingFileHelper) {
+	public BlockModelBuilder(Identifier outputLocation, ExistingFileHelper existingFileHelper) {
 		super(outputLocation, existingFileHelper);
 	}
 

@@ -3,7 +3,7 @@ package io.github.fabricators_of_create.porting_lib.models.generators;
 import io.github.fabricators_of_create.porting_lib.data.ExistingFileHelper;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 
 import java.util.Objects;
@@ -23,11 +23,11 @@ public abstract class ItemModelProvider extends ModelProvider<ItemModelBuilder> 
 		return basicItem(Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(item)));
 	}
 
-	public ItemModelBuilder basicItem(ResourceLocation item)
+	public ItemModelBuilder basicItem(Identifier item)
 	{
 		return getBuilder(item.toString())
 				.parent(new ModelFile.UncheckedModelFile("item/generated"))
-				.texture("layer0", ResourceLocation.fromNamespaceAndPath(item.getNamespace(), "item/" + item.getPath()));
+				.texture("layer0", Identifier.fromNamespaceAndPath(item.getNamespace(), "item/" + item.getPath()));
 	}
 
 	@Override

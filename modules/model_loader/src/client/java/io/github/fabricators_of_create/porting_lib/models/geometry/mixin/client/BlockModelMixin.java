@@ -26,7 +26,7 @@ import net.minecraft.client.resources.model.Material;
 import net.minecraft.client.resources.model.ModelBaker;
 import net.minecraft.client.resources.model.ModelState;
 import net.minecraft.client.resources.model.UnbakedModel;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 @Mixin(BlockModel.class)
 public class BlockModelMixin implements BlockModelExtension {
@@ -57,7 +57,7 @@ public class BlockModelMixin implements BlockModelExtension {
 	}
 
 	@Inject(method = "resolveParents", at = @At(value = "INVOKE", target = "Ljava/util/List;forEach(Ljava/util/function/Consumer;)V"))
-	private void handleCustomResolveParents(Function<ResourceLocation, UnbakedModel> function, CallbackInfo ci) {
+	private void handleCustomResolveParents(Function<Identifier, UnbakedModel> function, CallbackInfo ci) {
 		if (port_lib$customData.hasCustomGeometry())
 			port_lib$customData.getCustomGeometry().resolveParents(function, port_lib$customData);
 	}

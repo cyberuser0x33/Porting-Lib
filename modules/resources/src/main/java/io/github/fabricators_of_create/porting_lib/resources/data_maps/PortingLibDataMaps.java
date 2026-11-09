@@ -8,7 +8,7 @@ import net.fabricmc.fabric.impl.resource.loader.ResourceManagerHelperImpl;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.RegistryDataLoader;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import net.minecraft.server.packs.PackType;
 
@@ -21,7 +21,7 @@ import java.util.IdentityHashMap;
 import java.util.Map;
 
 public class PortingLibDataMaps {
-	private static final Map<ResourceKey<Registry<?>>, Map<ResourceLocation, DataMapType<?, ?>>> dataMaps = new IdentityHashMap<>();
+	private static final Map<ResourceKey<Registry<?>>, Map<Identifier, DataMapType<?, ?>>> dataMaps = new IdentityHashMap<>();
 	private static DataMapLoader DATA_MAPS;
 
 	public static void init() {
@@ -37,12 +37,12 @@ public class PortingLibDataMaps {
 	/**
 	 * {@return a view of all registered data maps}
 	 */
-	public static Map<ResourceKey<Registry<?>>, Map<ResourceLocation, DataMapType<?, ?>>> getDataMaps() {
+	public static Map<ResourceKey<Registry<?>>, Map<Identifier, DataMapType<?, ?>>> getDataMaps() {
 		return dataMaps;
 	}
 
 	@Nullable
-	public static <R> DataMapType<R, ?> getDataMap(ResourceKey<? extends Registry<R>> registry, ResourceLocation key) {
+	public static <R> DataMapType<R, ?> getDataMap(ResourceKey<? extends Registry<R>> registry, Identifier key) {
 		final var map = dataMaps.get(registry);
 		return map == null ? null : (DataMapType<R, ?>) map.get(key);
 	}

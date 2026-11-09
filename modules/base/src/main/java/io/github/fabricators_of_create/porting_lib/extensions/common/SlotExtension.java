@@ -13,7 +13,7 @@ public interface SlotExtension {
 	 * @return this, to allow chaining.
 	 */
 	default Slot setBackground(Identifier atlas, Identifier sprite) {
-		throw PortingLib.createMixinException("SlotExtensions.setBackground(ResourceLocation, ResourceLocation)");
+		throw PortingLib.createMixinException("SlotExtensions.setBackground(Identifier, Identifier)");
 	}
 
 	/**
